@@ -1,0 +1,41 @@
+# OS / editor artifacts
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.log
+
+# VS Code
+.vscode/
+
+# Node / tooling (not used now, but safe)
+node_modules/
+
+# Sass/SCSS caches
+.sass-cache/
+*.css.map
+*.scssc
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs (if later added)
+dist/
+build/
+.out/
+.tmp/
+.tmp/**
+
+# IDEs
+.idea/
+*.iml
+
+# Python local server cache
+__pycache__/
+
+# Mac
+.DS_Store
+
+# Vendor maps already included selectively; ignore any extra
+assets/vendor/**/*.map
