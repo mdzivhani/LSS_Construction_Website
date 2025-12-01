@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Services - Leetshego Safety Solutions</title>
-  <meta name="description" content="Discover our range of safety products including high visibility clothing, reflective products, and health & safety PPE. 100% South African made.">
-  <meta name="keywords" content="safety wear, PPE, high visibility clothing, reflective products, work wear, South Africa">
+  <title>Our Services - Leetshego Construction Services</title>
+  <meta name="description" content="Professional construction and maintenance services including brickwork, plastering, painting, and general maintenance.">
+  <meta name="keywords" content="construction, brickwork, plastering, painting, maintenance, building, South Africa">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -15,36 +15,235 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Constructo
-  * Template URL: https://bootstrapmade.com/constructo-bootstrap-construction-template/
-  * Updated: Aug 30 2025 with Bootstrap v5.3.8
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <style>
+    .services-hero {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: white;
+      padding: 5rem 0;
+      margin-top: 80px;
+    }
+
+    .services-hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .services-hero p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+
+    .service-section {
+      padding: 4rem 0;
+    }
+
+    .service-category-title {
+      font-size: 2.5rem;
+      color: #FF6B35;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 4px solid #FF6B35;
+      font-weight: 700;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      height: 100%;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e0e0e0;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(255,107,53,0.2);
+      border-color: #FF6B35;
+    }
+
+    .service-card h3 {
+      color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .service-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .service-card li {
+      padding: 0.8rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: #666;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .service-card li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #FF6B35;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .gallery-section {
+      background: #f8f9fa;
+      padding: 5rem 0;
+      margin-top: 3rem;
+    }
+
+    .gallery-title {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .gallery-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: #fff;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.15);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: white;
+      padding: 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+
+    .gallery-overlay h4 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #FF6B35;
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      color: #FF6B35;
+    }
+
+    @media (max-width: 768px) {
+      .services-hero h1 {
+        font-size: 2rem;
+      }
+
+      .services-hero p {
+        font-size: 1.1rem;
+      }
+
+      .service-category-title {
+        font-size: 1.8rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 
 <body class="services-page">
 
   <header id="header" class="header sticky-top">
-
-    <div class="branding d-flex align-items-cente">
-
+    <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/leetshegosafetylogo.jpg" alt="Leetshego Safety Solutions" style="height: 60px; width: auto; max-width: 200px; object-fit: contain;">
+          <h1 class="sitename">Leetshego Construction</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -53,201 +252,147 @@
             <li><a href="about.html">About</a></li>
             <li><a href="services.html" class="active">Services</a></li>
             <li><a href="projects.html">Projects</a></li>
-            
             <li><a href="contact.html">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-
       </div>
-
     </div>
-
   </header>
 
   <main class="main">
 
-    <!-- Removed duplicate page title bar for a cleaner Services page -->
+    <!-- Hero Section -->
+    <section class="services-hero">
+      <div class="container text-center" data-aos="fade-up">
+        <h1>Our Services</h1>
+        <p>Professional construction and maintenance solutions delivered with excellence</p>
+      </div>
+    </section>
 
     <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-            <div class="row mb-4">
-              <div class="col-12">
-                <h1 class="mb-3">Our Services</h1>
-                <p class="lead">Brick work & plastering, exterior & interior painting, and supply of health & safety wear (PPE) – proudly South African quality supporting safe, efficient project delivery.</p>
-              </div>
-            </div>
-
-        <div class="row gy-4">
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+    <section class="service-section">
+      <div class="container">
+        <h2 class="service-category-title" data-aos="fade-up">Construction and Maintenance Services</h2>
+        
+        <div class="row g-4">
+          <!-- Brickwork and Plastering -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-card">
-              <div class="service-icon">
-                <i class="bi bi-brightness-high"></i>
-              </div>
-              <h3>High Visibility Clothing</h3>
-              <p>Our range of high visibility protection clothing ensures workers are easily seen in all environments, meeting international safety standards.</p>
-              <div class="service-features">
-                <span><i class="bi bi-check-circle"></i> Safety Vests</span>
-                <span><i class="bi bi-check-circle"></i> Hi-Vis Jackets</span>
-                <span><i class="bi bi-check-circle"></i> Reflective Workwear</span>
-              </div>
-              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-card featured">
-              <div class="service-badge">Most Popular</div>
-              <div class="service-icon">
-                <i class="bi bi-diamond"></i>
-              </div>
-              <h3>Reflective Products</h3>
-              <p>Premium quality reflective clothing designed to enhance visibility in low-light conditions, perfect for night work and roadside operations.</p>
-              <div class="service-features">
-                <span><i class="bi bi-check-circle"></i> Reflective Tape</span>
-                <span><i class="bi bi-check-circle"></i> Reflective Vests</span>
-                <span><i class="bi bi-check-circle"></i> Safety Straps</span>
-              </div>
-              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card">
-              <div class="service-icon">
-                <i class="bi bi-shield-check"></i>
-              </div>
-              <h3>Health & Safety PPE</h3>
-              <p>Comprehensive range of personal protective equipment meeting all industry standards, ensuring worker safety across various industries.</p>
-              <div class="service-features">
-                <span><i class="bi bi-check-circle"></i> Safety Helmets</span>
-                <span><i class="bi bi-check-circle"></i> Protective Gloves</span>
-                <span><i class="bi bi-check-circle"></i> Safety Footwear</span>
-              </div>
-              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-        </div>
-
-        <div class="row mt-5">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-image-block">
-              <img src="assets/img/construction/project-1.webp" alt="Construction Services" class="img-fluid">
+              <h3><i class="bi bi-bricks"></i> Brickwork & Plastering</h3>
+              <ul>
+                <li>Residential and commercial brickwork</li>
+                <li>Plastering and finishing</li>
+                <li>Repairs and alterations</li>
+                <li>New construction and extensions</li>
+                <li>Boundary walls and structures</li>
+                <li>Quality finishing and detailing</li>
+              </ul>
             </div>
           </div>
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-list-block">
-              <h3>Why Choose LSS?</h3>
-              <p>At Leetshego Safety Solutions, we are committed to providing innovative 100% South African safety products that meet the highest industry standards. Established in 2017, we focus on quality, timely delivery, and complete customer satisfaction.</p>
+          <!-- Painting Services -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-card">
+              <h3><i class="bi bi-paint-bucket"></i> Painting Services</h3>
+              <ul>
+                <li>Interior and exterior painting</li>
+                <li>Residential properties</li>
+                <li>Commercial buildings</li>
+                <li>Surface preparation and finishing</li>
+                <li>Color consultation</li>
+                <li>Protective coatings</li>
+              </ul>
+            </div>
+          </div>
 
-              <div class="service-list">
-                <div class="service-list-item" data-aos="fade-up" data-aos-delay="100">
-                  <div class="service-list-icon">
-                    <i class="bi bi-flag"></i>
-                  </div>
-                  <div class="service-list-content">
-                    <h4>100% South African Products</h4>
-                    <p>All our safety products are proudly manufactured in South Africa, supporting local industry and ensuring quality control.</p>
-                  </div>
-                </div><!-- End Service List Item -->
-
-                <div class="service-list-item" data-aos="fade-up" data-aos-delay="200">
-                  <div class="service-list-icon">
-                    <i class="bi bi-trophy"></i>
-                  </div>
-                  <div class="service-list-content">
-                    <h4>Industry Standards Compliance</h4>
-                    <p>Our products meet all relevant safety standards and regulations, ensuring the highest level of worker protection.</p>
-                  </div>
-                </div><!-- End Service List Item -->
-
-                <div class="service-list-item" data-aos="fade-up" data-aos-delay="300">
-                  <div class="service-list-icon">
-                    <i class="bi bi-truck"></i>
-                  </div>
-                  <div class="service-list-content">
-                    <h4>Timely Delivery</h4>
-                    <p>We understand the importance of timely delivery in your operations and guarantee prompt service every time.</p>
-                  </div>
-                </div><!-- End Service List Item -->
-              </div>
+          <!-- General Maintenance -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card">
+              <h3><i class="bi bi-tools"></i> General Maintenance</h3>
+              <ul>
+                <li>Property maintenance</li>
+                <li>Building repairs</li>
+                <li>Renovation work</li>
+                <li>Structural improvements</li>
+                <li>Emergency repairs</li>
+                <li>Preventive maintenance</li>
+              </ul>
             </div>
           </div>
         </div>
-
-        <div class="cta-container text-center mt-5" data-aos="fade-up" data-aos-delay="300">
-          <h3>Ready to Order Quality Safety Products?</h3>
-          <p>Contact us today for a quote or to discuss your safety wear requirements.</p>
-          <a href="quote.html" class="btn btn-cta">Request a Free Quote</a>
-        </div>
-
       </div>
+    </section>
 
-    </section><!-- /Services Section -->
+    <!-- Call to Action - View Projects -->
+    <section class="gallery-section">
+      <div class="container text-center">
+        <h2 class="gallery-title" data-aos="fade-up">View Our Completed Projects</h2>
+        <p class="gallery-subtitle" data-aos="fade-up" data-aos-delay="100">
+          Explore our portfolio of completed and in-progress construction projects
+        </p>
+        <a href="projects.html" class="cta-button" style="background: #FF6B35; color: white;" data-aos="fade-up" data-aos-delay="200">
+          Browse Our Projects
+        </a>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="container" data-aos="fade-up">
+        <h2>Ready to Start Your Project?</h2>
+        <p>Contact us today for a free consultation and quote</p>
+        <a href="contact.html" class="cta-button">Get a Free Quote</a>
+      </div>
+    </section>
 
   </main>
 
   <footer id="footer" class="footer dark-background">
-
     <div class="container footer-top">
       <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-about">
+        <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Leetshego Safety Solutions</span>
+            <span class="sitename">Leetshego Construction</span>
           </a>
-          <p>Your trusted partner for innovative 100% South African safety products. We provide top-quality health and safety wear, high visibility protection clothing, and reflective products that meet industry standards.</p>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+          <div class="footer-contact pt-3">
+            <p>Quality construction and maintenance services</p>
+            <p>delivered with professionalism and excellence</p>
           </div>
         </div>
 
-        <div class="col-lg-2 col-6 footer-links">
+        <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
 
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Products</h4>
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
           <ul>
-            <li><a href="services.html">High Visibility Clothing</a></li>
-            <li><a href="services.html">Reflective Products</a></li>
-            <li><a href="services.html">Health & Safety PPE</a></li>
-            <li><a href="services.html">Work Wear Solutions</a></li>
-            <li><a href="quote.html">Request a Quote</a></li>
+            <li><a href="services.html#brickwork">Brickwork & Plastering</a></li>
+            <li><a href="services.html#painting">Painting Services</a></li>
+            <li><a href="services.html#maintenance">General Maintenance</a></li>
           </ul>
         </div>
 
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+        <div class="col-lg-4 col-md-12 footer-newsletter">
           <h4>Contact Us</h4>
-          <p>02 Kelly Road</p>
-          <p>Jet Park, Boksburg</p>
-          <p>South Africa</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>078 287 9661 | 067 774 6135</span></p>
-          <p><strong>Email:</strong> <span>Leetshego@gmail.com</span></p>
+          <p>Email: leetshego@example.com</p>
+          <p>Phone: +27 123 456 789</p>
+          <p>WhatsApp: +27 123 456 789</p>
         </div>
-
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Leetshego Safety Solutions</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        Your Safety is Our Priority | Established 2017 | 100% South African Products
-      </div>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Leetshego Construction</strong> <span>All Rights Reserved</span></p>
     </div>
-
   </footer>
 
   <!-- Scroll Top -->
@@ -260,11 +405,22 @@
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    // Initialize GLightbox for gallery
+    const lightbox = GLightbox({
+      selector: '.gallery-item',
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: true
+    });
+  </script>
 
 </body>
 
