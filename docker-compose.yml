@@ -8,15 +8,15 @@ services:
     container_name: leetshego-nginx
     restart: unless-stopped
     ports:
-      - "8080:8080"
-      - "8443:8443"
+      - "8080:80"
+      - "8443:443"
     volumes:
       - /home/mulalo/logs/lss_construction:/var/log/nginx
       - /etc/letsencrypt:/etc/letsencrypt:ro
     networks:
       - leetshego-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
       interval: 30s
       timeout: 10s
       retries: 3
