@@ -10,6 +10,9 @@ $RECYCLE.BIN/
 # Node / tooling (not used now, but safe)
 node_modules/
 
+# Environment variables
+.env
+
 # Sass/SCSS caches
 .sass-cache/
 *.css.map
