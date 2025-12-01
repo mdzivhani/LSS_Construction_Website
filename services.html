@@ -213,6 +213,74 @@
       color: #FF6B35;
     }
 
+    .ppe-gallery-section {
+      background: white;
+      padding: 3rem 0;
+    }
+
+    .ppe-category {
+      margin-bottom: 4rem;
+    }
+
+    .ppe-category-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .ppe-category-header h3 {
+      font-size: 2rem;
+      color: #0056b3;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .ppe-category-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .ppe-image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .ppe-image-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      aspect-ratio: 1;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .ppe-image-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,86,179,0.2);
+    }
+
+    .ppe-image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .ppe-image-item:hover img {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .ppe-image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+    }
+
     @media (max-width: 768px) {
       .services-hero h1 {
         font-size: 2rem;
@@ -467,6 +535,321 @@
       </div>
     </section>
 
+    <!-- PPE Product Galleries -->
+    <section class="ppe-gallery-section">
+      <div class="container">
+        <h2 class="service-category-title text-center" data-aos="fade-up" style="color: #0056b3; border-bottom-color: #0056b3;">PPE Product Gallery</h2>
+
+        <!-- Workwear and Overalls -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-person-workspace"></i> Workwear & Overalls</h3>
+            <p>Conti suits, flame retardant and acid resistant overalls, rain suits and reflective jackets</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/workwear-overalls/page7_img10.png" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img10.png" alt="Workwear Product">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img11.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img11.jpeg" alt="Overalls">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img12.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img12.jpeg" alt="Conti Suits">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img13.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img13.jpeg" alt="Flame Retardant Overalls">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img14.jpeg" alt="Rain Suits">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img15.jpeg" alt="Reflective Jackets">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img16.jpeg" alt="Workwear">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img17.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img17.jpeg" alt="Overalls">
+            </a>
+          </div>
+        </div>
+
+        <!-- High Visibility Safety Wear -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-exclamation-triangle"></i> High Visibility Safety Wear</h3>
+            <p>Reflective vests in various colours, high visibility jackets and rainwear</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/high-visibility/page8_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img2.jpeg" alt="Reflective Vest">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img3.jpeg" alt="High Visibility Jacket">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img4.jpeg" alt="Safety Vest">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img5.jpeg" alt="Hi-Vis Rainwear">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img6.jpeg" alt="Reflective Jacket">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img7.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img7.jpeg" alt="High Visibility Wear">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img8.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img8.jpeg" alt="Safety Jacket">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img9.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img9.jpeg" alt="Hi-Vis Clothing">
+            </a>
+          </div>
+        </div>
+
+        <!-- Safety Footwear -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-boot"></i> Safety Footwear</h3>
+            <p>Steel toe safety boots, Chelsea boots, gumboots and slip resistant shoes</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/safety-footwear/page8_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img14.jpeg" alt="Safety Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img15.jpeg" alt="Steel Toe Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img16.jpeg" alt="Chelsea Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img17.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img17.jpeg" alt="Gumboots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img18.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img18.jpeg" alt="Safety Shoes">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img19.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img19.jpeg" alt="Slip Resistant Shoes">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img20.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img20.jpeg" alt="Work Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img21.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img21.jpeg" alt="Safety Footwear">
+            </a>
+          </div>
+        </div>
+
+        <!-- Eye and Face Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-eyeglasses"></i> Eye & Face Protection</h3>
+            <p>Safety spectacles in different styles, goggles, and face shields</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/eye-face-protection/page10_img9.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img9.jpeg" alt="Safety Spectacles">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img10.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img10.jpeg" alt="Safety Goggles">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img11.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img11.jpeg" alt="Face Shield">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img12.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img12.jpeg" alt="Eye Protection">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img13.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img13.jpeg" alt="Safety Glasses">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img14.jpeg" alt="Protective Eyewear">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img15.jpeg" alt="Goggles">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img16.jpeg" alt="Face Protection">
+            </a>
+          </div>
+        </div>
+
+        <!-- Hand Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-hand-thumbs-up"></i> Hand Protection</h3>
+            <p>Leather, PVC, chemical resistant, cut resistant and disposable gloves</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/hand-protection/page11_img1.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img1.jpeg" alt="Work Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img2.jpeg" alt="Leather Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img3.jpeg" alt="PVC Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img4.jpeg" alt="Chemical Resistant Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img5.jpeg" alt="Cut Resistant Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img6.jpeg" alt="Disposable Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img7.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img7.jpeg" alt="Safety Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img8.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img8.jpeg" alt="Protective Gloves">
+            </a>
+          </div>
+        </div>
+
+        <!-- Respiratory Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-lungs"></i> Respiratory Protection</h3>
+            <p>Disposable masks, half mask and full mask respirators, filters and cartridges</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/respiratory-protection/page12_img1.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page12_img1.jpeg" alt="Disposable Masks">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page12_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page12_img2.jpeg" alt="Half Mask Respirator">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page12_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page12_img3.jpeg" alt="Full Mask Respirator">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page12_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page12_img4.jpeg" alt="Filters and Cartridges">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page12_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page12_img5.jpeg" alt="Respiratory Protection">
+            </a>
+          </div>
+        </div>
+
+        <!-- Head and Hearing Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-shield-check"></i> Head & Hearing Protection</h3>
+            <p>Hard hats, bump caps, ear muffs and ear plugs</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/head-hearing-protection/page13_img1.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img1.jpeg" alt="Hard Hats">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img10.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img10.jpeg" alt="Bump Caps">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img11.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img11.jpeg" alt="Ear Muffs">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img2.jpeg" alt="Ear Plugs">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img3.jpeg" alt="Head Protection">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img4.jpeg" alt="Hearing Protection">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img5.jpeg" alt="Safety Helmets">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img6.jpeg" alt="Hard Hat">
+            </a>
+          </div>
+        </div>
+
+        <!-- Fall Arrest and Harnesses -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-person-arms-up"></i> Fall Arrest & Harnesses</h3>
+            <p>Safety harnesses, lanyards, and retractable lifelines</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/fall-arrest-harnesses/page14_img1.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page14_img1.jpeg" alt="Safety Harness">
+            </a>
+            <a href="img/services/ppe/fall-arrest-harnesses/page14_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page14_img2.jpeg" alt="Lanyards">
+            </a>
+            <a href="img/services/ppe/fall-arrest-harnesses/page14_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page14_img3.jpeg" alt="Retractable Lifeline">
+            </a>
+            <a href="img/services/ppe/fall-arrest-harnesses/page14_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page14_img4.jpeg" alt="Fall Arrest Equipment">
+            </a>
+          </div>
+        </div>
+
+        <!-- First Aid and Medical Supplies -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-heart-pulse"></i> First Aid & Medical Supplies</h3>
+            <p>First aid kits, refill packs and medical consumables</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/first-aid-medical/page15_img1.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page15_img1.jpeg" alt="First Aid Kit">
+            </a>
+            <a href="img/services/ppe/first-aid-medical/page15_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page15_img2.jpeg" alt="Refill Packs">
+            </a>
+            <a href="img/services/ppe/first-aid-medical/page15_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page15_img3.jpeg" alt="Medical Consumables">
+            </a>
+            <a href="img/services/ppe/first-aid-medical/page15_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page15_img4.jpeg" alt="First Aid Supplies">
+            </a>
+          </div>
+        </div>
+
+        <!-- Site Safety and Traffic Management -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-cone-striped"></i> Site Safety & Traffic Management</h3>
+            <p>Cones, flags, barrier tape, wheel chocks, fire extinguishers, and safety signs</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/site-safety-traffic/page16_img1.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img1.jpeg" alt="Traffic Cones">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img10.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img10.jpeg" alt="Safety Flags">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img11.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img11.jpeg" alt="Barrier Tape">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img12.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img12.jpeg" alt="Wheel Chocks">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img13.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img13.jpeg" alt="Fire Extinguisher">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img14.jpeg" alt="Safety Signs">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img15.jpeg" alt="Road Signs">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page16_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page16_img2.jpeg" alt="Warning Signs">
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- Call to Action - View Projects -->
     <section class="gallery-section">
       <div class="container text-center">
@@ -567,7 +950,7 @@
   <script>
     // Initialize GLightbox for gallery
     const lightbox = GLightbox({
-      selector: '.gallery-item',
+      selector: '.glightbox',
       touchNavigation: true,
       loop: true,
       autoplayVideos: true
