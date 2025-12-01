@@ -29,21 +29,21 @@ jobs:
       
       - name: Verify Docker Compose configuration
         run: |
-          docker compose -f docker-compose.yml config
+          docker compose -f docker-compose.ci.yml config
       
       - name: Build and start services
         run: |
-          docker compose up -d --build
+          docker compose -f docker-compose.ci.yml up -d --build
           echo "Waiting for services to be ready..."
           sleep 15
       
       - name: Check service health
         run: |
           echo "Checking Docker Compose services..."
-          docker compose ps
+          docker compose -f docker-compose.ci.yml ps
           
           # Check if nginx container is running
-          if docker compose ps | grep -q "Up"; then
+          if docker compose -f docker-compose.ci.yml ps | grep -q "Up"; then
             echo "✓ Container is running"
             
             # Wait for nginx to fully start
@@ -64,15 +64,15 @@ jobs:
             
             echo "✗ Service health check failed after 10 attempts"
             echo "Container logs:"
-            docker compose logs
+            docker compose -f docker-compose.ci.yml logs
             exit 1
           else
             echo "✗ Container is not running properly"
-            docker compose logs
+            docker compose -f docker-compose.ci.yml logs
             exit 1
           fi
       
       - name: Stop services
         if: always()
         run: |
-          docker compose down -v
+          docker compose -f docker-compose.ci.yml down -v
