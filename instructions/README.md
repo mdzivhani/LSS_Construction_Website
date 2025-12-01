@@ -4,12 +4,28 @@ This directory contains all operational documentation and guidelines for the Lee
 
 ## Documentation Index
 
+### Critical Guidelines
+- **[application-isolation.md](./application-isolation.md)** - **MANDATORY**: Application isolation requirements and rules
+
 ### Deployment & Operations
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Complete deployment guide, SSL setup, and troubleshooting
 - **[setup-ssl.sh](./setup-ssl.sh)** - Automated SSL certificate setup script
 
 ### Content Management
 - **[content-management.md](./content-management.md)** - Guide for updating website content, images, and pages
+
+### Development Guidelines
+- **[backend-guidelines.md](./backend-guidelines.md)** - Backend development practices
+- **[frontend-guidelines.md](./frontend-guidelines.md)** - Frontend development practices
+- **[code-review-guidelines.md](./code-review-guidelines.md)** - Code review standards
+- **[configuration-management.md](./configuration-management.md)** - Configuration management
+- **[documentation-style.md](./documentation-style.md)** - Documentation standards
+- **[git-workflow.md](./git-workflow.md)** - Git workflow and commit practices
+- **[naming-conventions.md](./naming-conventions.md)** - Naming conventions
+- **[project-structure.md](./project-structure.md)** - Project organization
+- **[testing-practices.md](./testing-practices.md)** - Testing guidelines
+- **[data-persistence-deployment.md](./data-persistence-deployment.md)** - Data storage and deployment
+- **[workflow-file-paths.md](./workflow-file-paths.md)** - CI/CD file paths
 
 ### Project Information
 - **Project Name:** Leetshego Safety Solutions Website
