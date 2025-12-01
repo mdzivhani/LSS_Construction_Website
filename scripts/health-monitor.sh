@@ -30,9 +30,12 @@ check_container() {
 
 # Check application health
 check_health() {
-    if curl -sf "$HEALTH_CHECK_URL" > /dev/null 2>&1; then
+    # Check HTTP status code, not just connectivity
+    local http_code=$(curl -s -o /dev/null -w "%{http_code}" "$HEALTH_CHECK_URL" 2>/dev/null)
+    if [ "$http_code" = "200" ]; then
         return 0
     else
+        log_message "WARNING: Health check returned HTTP $http_code (expected 200)"
         return 1
     fi
 }
