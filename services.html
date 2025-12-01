@@ -30,8 +30,8 @@
     .services-hero {
       background: linear-gradient(135deg, #14529d 0%, #102a49 100%);
       color: #ffffff;
-      padding: 20px 0; /* more compact header */
-      margin-top: 80px;
+      padding: 12px 0; /* even more compact header */
+      margin-top: 40px; /* reduce whitespace below navbar */
     }
 
     .services-hero h1 {
@@ -47,7 +47,7 @@
     }
 
     .service-section {
-      padding: 1.5rem 0; /* tighter vertical spacing */
+      padding: 1rem 0; /* further reduce vertical spacing */
     }
 
     .service-category-title {
@@ -108,8 +108,8 @@
     }
     /* Reduce gutters between cards */
     .service-section .row.g-4 {
-      --bs-gutter-x: 0.75rem;
-      --bs-gutter-y: 0.75rem;
+      --bs-gutter-x: 0.5rem; /* tighter horizontal gap */
+      --bs-gutter-y: 0.5rem; /* tighter vertical gap */
     }
 
     .service-card li:before {
@@ -415,11 +415,17 @@
       <div class="container">
         <h2 class="service-category-title" data-aos="fade-up">Industrial Cleaning</h2>
         <div class="row g-4">
-          <div class="col-lg-6 col-md-8" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-card">
-              <img src="assets/img/construction/project-7.webp" alt="Industrial cleaning at warehouse facility" class="img-fluid rounded mb-3">
               <h3><i class="bi bi-buildings"></i> Industrial Cleaning</h3>
-              <p>Professional deep cleaning solutions for factories, warehouses, plants and high-risk industrial environments. Our service covers machinery cleaning, high-dust areas, spill control, waste removal, floor treatment and full compliance with health and safety standards.</p>
+              <ul>
+                <li>Factory and warehouse cleaning</li>
+                <li>Machinery and equipment cleaning</li>
+                <li>High-dust area maintenance</li>
+                <li>Spill control and waste removal</li>
+                <li>Floor treatment and coatings</li>
+                <li>Compliance with health and safety standards</li>
+              </ul>
             </div>
           </div>
         </div>
