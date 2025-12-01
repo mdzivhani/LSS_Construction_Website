@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: leetshego-construction:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Verify Docker Compose configuration
+        run: |
+          docker compose -f docker-compose.yml config
+      
+      - name: Build and start services
+        run: |
+          docker compose up -d --build
+          sleep 10
+      
+      - name: Check service health
+        run: |
+          docker compose ps
+          curl -f http://localhost:80 || exit 1
+      
+      - name: Stop services
+        if: always()
+        run: |
+          docker compose down -v
