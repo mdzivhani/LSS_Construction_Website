@@ -7,6 +7,6 @@ COPY . /usr/share/nginx/html
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d /etc/nginx/conf.d
 
-EXPOSE 80 443
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
