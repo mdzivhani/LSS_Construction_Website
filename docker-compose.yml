@@ -13,8 +13,35 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
     networks:
       - leetshego-network
+    depends_on:
+      quote-api:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  quote-api:
+    build:
+      context: ./server/quote-api
+      dockerfile: Dockerfile
+    container_name: leetshego-quote-api
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_SECURE=${SMTP_SECURE}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - FROM_EMAIL=${FROM_EMAIL}
+      - TO_EMAIL=${TO_EMAIL}
+    networks:
+      - leetshego-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
       retries: 3

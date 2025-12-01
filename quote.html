@@ -132,7 +132,7 @@
 
                 <div class="col-lg-6">
                   <div class="quote-form-wrapper">
-                    <form action="forms/quote.php" method="post" class="php-email-form" data-aos="fade-left" data-aos-delay="200">
+                    <form id="quoteForm" class="php-email-form" data-aos="fade-left" data-aos-delay="200">
                       <div class="form-header">
                         <h4>Request Your Quote</h4>
                         <p>Fill out the form below and Tshepo will get back to you with a detailed estimate within 24 hours.</p>
@@ -159,14 +159,14 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <select name="type" class="form-control" required="">
+                            <select name="type" class="form-control" id="productCategory" required="">
                               <option value="">Select Product Category</option>
-                              <option value="hiviz">High Visibility Clothing</option>
-                              <option value="reflective">Reflective Products</option>
-                              <option value="ppe">Health & Safety PPE</option>
-                              <option value="workwear">Safety Workwear</option>
-                              <option value="bulk">Bulk Order</option>
-                              <option value="other">Other</option>
+                              <option value="High Visibility Clothing">High Visibility Clothing</option>
+                              <option value="Reflective Products">Reflective Products</option>
+                              <option value="Health & Safety PPE">Health & Safety PPE</option>
+                              <option value="Safety Workwear">Safety Workwear</option>
+                              <option value="Bulk Order">Bulk Order</option>
+                              <option value="Other">Other</option>
                             </select>
                           </div>
                         </div>
@@ -175,29 +175,29 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <select name="timeline" class="form-control" required="">
+                            <select name="timeline" class="form-control" id="deliveryDate" required="">
                               <option value="">When do you need delivery?</option>
-                              <option value="urgent">Urgent (ASAP)</option>
-                              <option value="1-2weeks">1-2 Weeks</option>
-                              <option value="3-4weeks">3-4 Weeks</option>
-                              <option value="flexible">Flexible</option>
+                              <option value="Urgent (ASAP)">Urgent (ASAP)</option>
+                              <option value="1-2 Weeks">1-2 Weeks</option>
+                              <option value="3-4 Weeks">3-4 Weeks</option>
+                              <option value="Flexible">Flexible</option>
                             </select>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" name="quantity" class="form-control" id="quantity" placeholder="Estimated Quantity (Optional)">
+                            <input type="text" name="quantity" class="form-control" id="estimatedQuantity" placeholder="Estimated Quantity (Optional)">
                           </div>
                         </div>
                       </div>
 
                       <div class="form-group">
-                        <textarea class="form-control" name="message" rows="5" placeholder="Order Details - Tell us about your safety product needs, specific requirements, sizes, quantities, and any other details..." required=""></textarea>
+                        <textarea class="form-control" name="message" id="orderDetails" rows="5" placeholder="Order Details - Tell us about your safety product needs, specific requirements, sizes, quantities, and any other details..." required=""></textarea>
                       </div>
 
-                      <div class="loading">Loading</div>
-                      <div class="error-message"></div>
-                      <div class="sent-message">Your quote request has been sent successfully. Tshepo will contact you within 24 hours!</div>
+                      <div class="loading" style="display:none;">Submitting...</div>
+                      <div class="error-message" style="display:none;"></div>
+                      <div class="sent-message" style="display:none;">Your quote request has been sent successfully. Tshepo will contact you within 24 hours!</div>
 
                       <div class="text-center">
                         <button type="submit">Request Quote</button>
@@ -289,6 +289,88 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Quote form API integration -->
+  <script>
+    (function() {
+      const form = document.getElementById('quoteForm');
+      if (!form) return;
+
+      const loading = form.querySelector('.loading');
+      const errorDiv = form.querySelector('.error-message');
+      const successDiv = form.querySelector('.sent-message');
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Hide all status
+        loading.style.display = 'none';
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'none';
+        errorDiv.textContent = '';
+
+        // Get fields
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const productCategory = document.getElementById('productCategory').value;
+        const deliveryDate = document.getElementById('deliveryDate').value;
+        const estimatedQuantity = document.getElementById('estimatedQuantity').value.trim();
+        const orderDetails = document.getElementById('orderDetails').value.trim();
+
+        // Validate
+        if (!name || !email || !phone || !productCategory || !deliveryDate || !orderDetails) {
+          errorDiv.textContent = 'Please fill in all required fields.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
+        const emailRegex = /.+@.+\..+/;
+        if (!emailRegex.test(email)) {
+          errorDiv.textContent = 'Please enter a valid email address.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
+        loading.style.display = 'block';
+
+        try {
+          const response = await fetch('/api/quote-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+              phone,
+              productCategory,
+              deliveryDate,
+              estimatedQuantity,
+              orderDetails
+            })
+          });
+
+          const result = await response.json();
+          loading.style.display = 'none';
+
+          if (response.ok && result.ok) {
+            successDiv.style.display = 'block';
+            form.reset();
+          } else {
+            let msg = 'An error occurred. Please try again or contact us directly.';
+            if (result.error === 'validation') {
+              msg = 'Please check your form fields: ' + (result.fields || []).join(', ');
+            }
+            errorDiv.textContent = msg;
+            errorDiv.style.display = 'block';
+          }
+        } catch (err) {
+          loading.style.display = 'none';
+          errorDiv.textContent = 'Network error. Please check your connection and try again.';
+          errorDiv.style.display = 'block';
+        }
+      });
+    })();
+  </script>
 
 </body>
 
