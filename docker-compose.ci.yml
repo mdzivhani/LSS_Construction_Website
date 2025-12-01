@@ -1,0 +1,15 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci
+    container_name: leetshego-nginx-ci
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - leetshego-network
+
+networks:
+  leetshego-network:
+    driver: bridge

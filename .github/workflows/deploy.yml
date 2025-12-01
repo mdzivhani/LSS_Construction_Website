@@ -1,0 +1,62 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to server
+        run: |
+          echo "Deployment triggered for main branch"
+          echo "The automated deployment script (auto-deploy.sh) will handle this via cron"
+          echo "Manual deployment: SSH to server and run /home/mulalo/applications/lss_construction/scripts/auto-deploy.sh"
+      
+      - name: Verify deployment readiness
+        run: |
+          # Check that docker-compose.yml is valid
+          docker compose -f docker-compose.yml config > /dev/null
+          echo "✓ Docker Compose configuration is valid"
+          
+          # Check that Dockerfile exists
+          if [ -f "Dockerfile" ]; then
+            echo "✓ Dockerfile exists"
+          else
+            echo "✗ Dockerfile not found"
+            exit 1
+          fi
+          
+          # Check that nginx config exists
+          if [ -d "nginx" ]; then
+            echo "✓ Nginx configuration directory exists"
+          else
+            echo "✗ Nginx configuration not found"
+            exit 1
+          fi
+      
+      - name: Create deployment summary
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Branch:** main" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Automated Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "The server will automatically pull and deploy changes during the next scheduled run:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Schedule:** 6:30 AM and 6:30 PM daily" >> $GITHUB_STEP_SUMMARY
+          echo "- **Script:** \`/home/mulalo/applications/lss_construction/scripts/auto-deploy.sh\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Manual Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "To deploy immediately, SSH to the server and run:" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+          echo "cd /home/mulalo/applications/lss_construction" >> $GITHUB_STEP_SUMMARY
+          echo "./scripts/auto-deploy.sh" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,89 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [dev]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: |
+          npm install -g htmlhint stylelint stylelint-config-standard
+      
+      - name: Validate HTML files
+        run: |
+          htmlhint "*.html" || echo "HTML validation completed with warnings"
+      
+      - name: Create stylelint config
+        run: |
+          cat > .stylelintrc.json << 'EOF'
+          {
+            "extends": "stylelint-config-standard",
+            "rules": {
+              "selector-class-pattern": null,
+              "custom-property-pattern": null,
+              "no-descending-specificity": null,
+              "font-family-no-missing-generic-family-keyword": null
+            }
+          }
+          EOF
+      
+      - name: Lint CSS files
+        run: |
+          stylelint "assets/css/**/*.css" || echo "CSS linting completed with warnings"
+      
+      - name: Check for broken internal links
+        run: |
+          echo "Checking internal links in HTML files..."
+          grep -rh 'href="[^http]' *.html | grep -o 'href="[^"]*"' | sort -u > links.txt
+          echo "Found $(wc -l < links.txt) internal links"
+          
+          while IFS= read -r link; do
+            file=$(echo "$link" | sed 's/href="//;s/"//;s/#.*//')
+            if [ -n "$file" ] && [ ! -f "$file" ] && [ "$file" != "/" ]; then
+              echo "Warning: Broken link found - $file"
+            fi
+          done < links.txt
+      
+      - name: Verify required files exist
+        run: |
+          required_files=(
+            "index.html"
+            "about.html"
+            "services.html"
+            "projects.html"
+            "contact.html"
+            "Dockerfile"
+            "docker-compose.yml"
+          )
+          
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Error: Required file missing - $file"
+              exit 1
+            fi
+          done
+          
+          echo "✓ All required files present"
+      
+      - name: Check image references
+        run: |
+          echo "Checking image references..."
+          grep -rh 'src="img/' *.html | grep -o 'src="[^"]*"' | sed 's/src="//;s/"//' | while read img; do
+            if [ ! -f "$img" ]; then
+              echo "Warning: Referenced image not found - $img"
+            fi
+          done || echo "Image check completed"

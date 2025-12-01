@@ -1,0 +1,78 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: leetshego-construction:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Verify Docker Compose configuration
+        run: |
+          docker compose -f docker-compose.ci.yml config
+      
+      - name: Build and start services
+        run: |
+          docker compose -f docker-compose.ci.yml up -d --build
+          echo "Waiting for services to be ready..."
+          sleep 15
+      
+      - name: Check service health
+        run: |
+          echo "Checking Docker Compose services..."
+          docker compose -f docker-compose.ci.yml ps
+          
+          # Check if nginx container is running
+          if docker compose -f docker-compose.ci.yml ps | grep -q "Up"; then
+            echo "✓ Container is running"
+            
+            # Wait for nginx to fully start
+            echo "Waiting for nginx to be ready..."
+            sleep 5
+            
+            # Try to access the service with retries
+            echo "Testing service accessibility on port 8080..."
+            for i in {1..10}; do
+              if curl -s -o /dev/null -w "%{http_code}" http://localhost:8080 | grep -q "200\|301\|302"; then
+                echo "✓ Service is accessible on port 8080"
+                echo "Service responded successfully!"
+                exit 0
+              fi
+              echo "Attempt $i/10: Service not ready yet, retrying..."
+              sleep 3
+            done
+            
+            echo "✗ Service health check failed after 10 attempts"
+            echo "Container logs:"
+            docker compose -f docker-compose.ci.yml logs
+            exit 1
+          else
+            echo "✗ Container is not running properly"
+            docker compose -f docker-compose.ci.yml logs
+            exit 1
+          fi
+      
+      - name: Stop services
+        if: always()
+        run: |
+          docker compose -f docker-compose.ci.yml down -v
