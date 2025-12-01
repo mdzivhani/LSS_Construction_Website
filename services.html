@@ -30,23 +30,24 @@
     .services-hero {
       background: linear-gradient(135deg, #14529d 0%, #102a49 100%);
       color: #ffffff;
-      padding: 3rem 0;
+      padding: 40px 0; /* compact header */
       margin-top: 80px;
     }
 
     .services-hero h1 {
-      font-size: 2.25rem;
+      font-size: 32px; /* reduced title size */
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .services-hero p {
-      font-size: 1.05rem;
+      font-size: 16px; /* reduced subtitle */
       opacity: 0.95;
+      margin-bottom: 0; /* remove extra space below */
     }
 
     .service-section {
-      padding: 3rem 0;
+      padding: 2rem 0; /* tighter vertical spacing */
     }
 
     .service-category-title {
@@ -61,11 +62,15 @@
     .service-card {
       background: white;
       border-radius: 12px;
-      padding: 2.5rem;
+      padding: 20px; /* reduce padding */
       height: 100%;
       box-shadow: 0 5px 20px rgba(0,0,0,0.08);
       transition: all 0.3s ease;
       border: 1px solid #e0e0e0;
+      max-width: 320px; /* restrict width */
+      min-height: auto;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .service-card:hover {
@@ -76,9 +81,14 @@
 
     .service-card h3 {
       color: #333;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
+      font-size: 20px; /* reduce heading size */
+      margin-bottom: 1rem;
       font-weight: 600;
+    }
+
+    .service-card h3 i,
+    .service-card .icon {
+      font-size: 28px; /* reduce icon size */
     }
 
     .service-card ul {
@@ -88,12 +98,18 @@
     }
 
     .service-card li {
-      padding: 0.8rem 0;
+      padding: 0.5rem 0; /* tighter spacing */
       padding-left: 2rem;
       position: relative;
       color: #666;
-      font-size: 1.05rem;
-      line-height: 1.6;
+      font-size: 14px; /* smaller text */
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    /* Reduce gutters between cards */
+    .service-section .row.g-4 {
+      --bs-gutter-x: 1rem;
+      --bs-gutter-y: 1rem;
     }
 
     .service-card li:before {
