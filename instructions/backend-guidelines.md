@@ -131,6 +131,203 @@
 
 - Return meaningful error messages to clients
 
+## Error Handling and Logging
+
+Every feature must have proper error handling and structured logging.
+
+### Error Handling Principles
+
+- **Never ignore or hide errors**
+  - Catch exceptions only when you can handle them
+  - If you cannot recover, log the error with full context and pass it to the global error handler
+
+- **Global Error Handler**
+  - Each backend must have a global error handler that logs the exception and returns a JSON error response with the correct HTTP status code
+  - Do not expose stack traces to users in production
+  - Return structured error responses: `{"error": "message", "code": "ERROR_CODE"}`
+
+- **Exception Handling Best Practices**
+  - Use specific exception types for different error scenarios
+  - Include relevant context in exception messages
+  - Log at the appropriate level (Warning for expected errors, Error for unexpected)
+  - Return appropriate HTTP status codes (400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Internal Server Error)
+
+### Structured Logging
+
+- **Use structured logging with clear fields**:
+  - Operation name (e.g., "UserLogin", "AvatarUpload", "ProfileUpdate")
+  - Timestamp (automatic with most logging frameworks)
+  - User ID (when applicable)
+  - Entity ID (e.g., business ID, booking ID)
+  - Important parameters (file size, request type, etc.)
+  
+- **Never log sensitive data**:
+  - Passwords, tokens, API keys
+  - Credit card numbers, personal identification numbers
+  - Full user details unless necessary
+
+- **Log major events at appropriate levels**:
+  - **Debug**: Detailed diagnostic information for troubleshooting
+  - **Info**: Normal application flow (login, profile updates, avatar uploads, bookings)
+  - **Warning**: Validation failures, expected errors, recoverable issues
+  - **Error**: Unexpected errors, exceptions, failed operations
+  - **Critical**: System failures, data corruption, security breaches
+
+### Events to Log
+
+Log the following major events at **Info** level:
+- User registration and login
+- Profile updates (name, phone, location changes)
+- Avatar uploads (start and completion)
+- Business listings created or updated
+- Bookings and reservations
+- Payment transactions
+- Data exports or imports
+
+Log the following at **Warning** level:
+- Validation failures (invalid email, weak password, file too large)
+- Rate limiting triggers
+- Deprecated API usage
+- Authentication failures (wrong password)
+
+Log the following at **Error** level:
+- Unhandled exceptions
+- Database connection failures
+- Third-party API failures
+- File system errors
+- Data integrity issues
+
+### Logging Infrastructure
+
+- **All services must write logs to a file or central logging system**
+  - Use consistent log format across all services
+  - Rotate log files to prevent disk space issues
+  - Consider using centralized logging (ELK stack, CloudWatch, Application Insights)
+
+- **Use consistent keywords for easy searching**:
+  - Tag logs with operation names: "[UserLogin]", "[AvatarUpload]", "[ProfileUpdate]"
+  - Use structured fields that can be queried
+  - Include correlation IDs for request tracking
+
+### Avatar Upload Logging and Error Handling
+
+When a user uploads a profile picture, follow these specific logging and error handling guidelines:
+
+#### Upload Start
+- Log at **Info** level when upload begins:
+  ```
+  Logger.Info("Avatar upload started", new {
+      Operation = "AvatarUpload",
+      UserId = userId,
+      FileName = file.FileName,
+      FileSize = file.Length,
+      FileType = file.ContentType,
+      Tags = new[] { "avatar", "upload" }
+  });
+  ```
+
+#### Validation Steps
+- Log all validation checks:
+  - File type validation (JPG, PNG only)
+  - File size validation (< 1MB)
+  - File content validation (actual image data)
+  
+- If validation fails, log at **Warning** level and return 400 response:
+  ```
+  Logger.Warning("Avatar upload validation failed", new {
+      Operation = "AvatarUpload",
+      UserId = userId,
+      FileName = file.FileName,
+      Reason = "File size exceeds 1MB limit",
+      FileSize = file.Length,
+      Tags = new[] { "avatar", "upload", "validation_error" }
+  });
+  return BadRequest(new { error = "File size exceeds 1MB limit" });
+  ```
+
+#### File Save Success
+- After saving the image, log the saved file path or storage key at **Info** level:
+  ```
+  Logger.Info("Avatar file saved successfully", new {
+      Operation = "AvatarUpload",
+      UserId = userId,
+      FilePath = savedFilePath,
+      FileSize = file.Length,
+      Tags = new[] { "avatar", "upload" }
+  });
+  ```
+
+#### Database Update
+- When user profile is updated with new picture path/URL, log at **Info** level:
+  ```
+  Logger.Info("User profile updated with new avatar", new {
+      Operation = "ProfileUpdate",
+      UserId = userId,
+      Field = "ProfilePicture",
+      NewValue = avatarUrl,
+      Tags = new[] { "avatar", "profile" }
+  });
+  ```
+
+#### Error Handling
+- If an error occurs at any step, log at **Error** level with full context:
+  ```
+  Logger.Error("Avatar upload failed", exception, new {
+      Operation = "AvatarUpload",
+      UserId = userId,
+      FileName = file.FileName,
+      Step = "FileSave",
+      ErrorMessage = exception.Message,
+      StackTrace = exception.StackTrace,
+      Tags = new[] { "avatar", "upload", "error" }
+  });
+  return StatusCode(500, new { 
+      error = "Avatar upload failed", 
+      code = "AVATAR_UPLOAD_ERROR" 
+  });
+  ```
+
+#### Required Tags
+Include these three tags in all avatar-related logs for easy searching:
+1. **"avatar"** - Identifies avatar-related operations
+2. **"upload"** - Identifies upload operations (or "delete" for removal)
+3. **"error"** - Identifies error scenarios (only when errors occur)
+
+### Logging Examples
+
+**Successful user login**:
+```csharp
+Logger.Info("User logged in successfully", new {
+    Operation = "UserLogin",
+    UserId = user.Id,
+    Email = user.Email,
+    LoginMethod = "Password",
+    IpAddress = request.IpAddress
+});
+```
+
+**Validation failure**:
+```csharp
+Logger.Warning("Profile update validation failed", new {
+    Operation = "ProfileUpdate",
+    UserId = userId,
+    Field = "Phone",
+    Reason = "Invalid phone number format",
+    ProvidedValue = phoneNumber
+});
+```
+
+**Unexpected error**:
+```csharp
+Logger.Error("Database query failed", exception, new {
+    Operation = "GetUserProfile",
+    UserId = userId,
+    Query = "SELECT * FROM users WHERE id = @userId",
+    ErrorMessage = exception.Message,
+    StackTrace = exception.StackTrace
+});
+```
+
 ### Asynchronous Code
 
 - Use async/await for I/O-bound operations
