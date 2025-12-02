@@ -696,8 +696,8 @@
           respiratory: ['Dust Mask','Respirator','Filter','Cartridge'],
           headhearing: ['Hard Hat','Bump Cap','Earplugs','Earmuffs'],
           fallarrest: ['Full Body Harness','Lanyard','Anchor Point','Lifeline'],
-          firstaid: ['First Aid Kit','Bandages','Burn Care','Eye Wash Station'],
-          sitesafety: ['Traffic Cone','Barrier','Safety Sign','Fire Extinguisher','Wheel Chocks'],
+          firstaid: ['First Aid Kit (Small)','First Aid Kit (Medium)','First Aid Kit (Large)','Bandages','Burn Care','Eye Wash Station'],
+          sitesafety: ['Traffic Cone','Barrier','Safety Sign','Fire Extinguisher (1kg)','Fire Extinguisher (2kg)','Fire Extinguisher (4kg)','Fire Extinguisher (6kg)','Fire Extinguisher (9kg)','Wheel Chocks'],
           generic: []
         };
         const colorOptionsMap = {
@@ -705,12 +705,12 @@
           highvis: ['Yellow','Orange','Green'],
           footwear: ['Black','Brown'],
           eyeface: ['Clear','Tinted'],
-          gloves: ['Black','Blue','Grey'],
-          respiratory: ['Standard'],
-          headhearing: ['White','Yellow','Orange','Blue'],
-          fallarrest: ['Standard'],
-          firstaid: ['Standard'],
-          sitesafety: ['Red','Orange','Yellow','White'],
+          gloves: ['Black','Blue','Grey','Yellow'],
+          respiratory: ['White','Blue'],
+          headhearing: ['White','Yellow','Orange','Blue','Red'],
+          fallarrest: ['Black','Yellow'],
+          firstaid: ['Red','White'],
+          sitesafety: ['Red','Orange','Yellow','White','Black'],
           generic: []
         };
         const optionsHtml = (sizeOptions[sizeSet] || []).map(s => `<option value="${s}">${s}</option>`).join('');
@@ -744,25 +744,73 @@
           </div>
         `;
         container.appendChild(row);
-        // Toggle Other inputs visibility
+        
+        // Product-specific intelligence: hide/show fields based on product type
         const productSel = row.querySelector('.item-product');
         const productOther = row.querySelector('.item-product-other');
-        if (productSel && productOther) {
-          productSel.addEventListener('change', () => {
-            productOther.style.display = productSel.value === '__other' ? 'block' : 'none';
-            if (productSel.value !== '__other') productOther.value = '';
-          });
-        }
+        const colorCol = row.querySelector('.col-3');
+        const sizeCol = row.querySelector('.col-2:first-of-type');
         const colorSel = row.querySelector('.item-color');
         const colorOther = row.querySelector('.item-color-other');
+        const sizeSel = row.querySelector('.item-size');
+        const qtySel = row.querySelector('.item-qty');
+        const qtyOther = row.querySelector('.item-qty-other');
+
+        // Define products that don't need color/size
+        const noColorNeeded = ['Fire Extinguisher (1kg)', 'Fire Extinguisher (2kg)', 'Fire Extinguisher (4kg)', 
+                               'Fire Extinguisher (6kg)', 'Fire Extinguisher (9kg)', 'Wheel Chocks', 'Barrier', 
+                               'Traffic Cone', 'Safety Sign', 'First Aid Kit (Small)', 'First Aid Kit (Medium)', 
+                               'First Aid Kit (Large)', 'Eye Wash Station', 'Respirator', 'Filter', 'Cartridge',
+                               'Anchor Point', 'Lifeline', 'Bandages', 'Burn Care', 'Dust Mask'];
+        const noSizeNeeded = ['Fire Extinguisher (1kg)', 'Fire Extinguisher (2kg)', 'Fire Extinguisher (4kg)',
+                             'Fire Extinguisher (6kg)', 'Fire Extinguisher (9kg)', 'Wheel Chocks', 'Barrier', 
+                             'Traffic Cone', 'Safety Sign', 'First Aid Kit (Small)', 'First Aid Kit (Medium)', 
+                             'First Aid Kit (Large)', 'Eye Wash Station', 'Respirator', 'Filter', 'Cartridge',
+                             'Anchor Point', 'Lifeline', 'Bandages', 'Burn Care', 'Safety Glasses', 
+                             'Goggles', 'Face Shield', 'Welding Helmet', 'Dust Mask', 'Earplugs', 'Earmuffs'];
+        
+        function updateFieldVisibility(product) {
+          // Hide color if not needed for this product
+          if (noColorNeeded.includes(product)) {
+            colorCol.style.display = 'none';
+            if (colorSel) colorSel.value = '';
+            if (colorOther) colorOther.value = '';
+          } else {
+            colorCol.style.display = 'block';
+          }
+          
+          // Hide size if not needed for this product
+          if (noSizeNeeded.includes(product)) {
+            sizeCol.style.display = 'none';
+            if (sizeSel) sizeSel.value = '';
+          } else {
+            sizeCol.style.display = 'block';
+          }
+        }
+
+        // Toggle Other inputs visibility and apply intelligence
+        if (productSel && productOther) {
+          productSel.addEventListener('change', () => {
+            const isOther = productSel.value === '__other';
+            productOther.style.display = isOther ? 'block' : 'none';
+            if (!isOther) {
+              productOther.value = '';
+              updateFieldVisibility(productSel.value);
+            } else {
+              // Show all fields for custom products
+              colorCol.style.display = 'block';
+              sizeCol.style.display = 'block';
+            }
+          });
+        }
+        
         if (colorSel && colorOther) {
           colorSel.addEventListener('change', () => {
             colorOther.style.display = colorSel.value === '__other' ? 'block' : 'none';
             if (colorSel.value !== '__other') colorOther.value = '';
           });
         }
-        const qtySel = row.querySelector('.item-qty');
-        const qtyOther = row.querySelector('.item-qty-other');
+        
         if (qtySel && qtyOther) {
           qtySel.addEventListener('change', () => {
             qtyOther.style.display = qtySel.value === '__other' ? 'block' : 'none';
