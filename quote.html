@@ -333,9 +333,15 @@
                             </label>
                           </div>
                           <div id="details_workwear" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 10x Conti Suits, 5x Rain Suits)">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., S, M, L, XL, XXL, XXXL)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (colors, specifications, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries (color, size, quantity)</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_workwear_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="workwear_items"></div>
+                            <hr class="my-2">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional) e.g., S, M, L, XL">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (colors, specs, branding, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -349,9 +355,15 @@
                             </label>
                           </div>
                           <div id="details_highvis" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 20x Reflective Vests, 10x Hi-Vis Jackets)">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., S, M, L, XL, XXL)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (vest colors, reflective tape specs, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_highvis_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="highvis_items"></div>
+                            <hr class="my-2">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional)">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (tape specs, colors, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -365,9 +377,15 @@
                             </label>
                           </div>
                           <div id="details_footwear" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 15 pairs Safety Boots, 10 pairs Gumboots)">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., 6, 7, 8, 9, 10, 11, 12)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (boot type, steel toe specs, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_footwear_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="footwear_items"></div>
+                            <hr class="my-2">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional)">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (boot type, steel toe specs, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -396,9 +414,15 @@
                             </label>
                           </div>
                           <div id="details_gloves" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 50 pairs Nitrile Gloves, 20 pairs Leather)">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., S, M, L, XL)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (glove type, grip requirements, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_gloves_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="gloves_items"></div>
+                            <hr class="my-2">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional)">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (glove type, grip, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -472,8 +496,14 @@
                             </label>
                           </div>
                           <div id="details_sitesafety" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 20x Traffic Cones, 10x Barriers, 5x Signs)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (sign types, barrier specs, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_sitesafety_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="sitesafety_items"></div>
+                            <hr class="my-2">
+                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (sign types, barrier specs, etc.)"></textarea>
                           </div>
                         </div>
                       </div>
@@ -612,6 +642,54 @@
   <!-- Quote form functionality -->
   <script>
     (function() {
+      function createItemRow(containerId) {
+        const container = document.getElementById(containerId);
+        const row = document.createElement('div');
+        row.className = 'row g-2 align-items-end mb-2 item-row';
+        row.innerHTML = `
+          <div class="col-4">
+            <label class="form-label small">Product</label>
+            <input type="text" class="form-control form-control-sm item-product" placeholder="e.g., Rain Suit">
+          </div>
+          <div class="col-3">
+            <label class="form-label small">Color</label>
+            <input type="text" class="form-control form-control-sm item-color" placeholder="e.g., Black/White">
+          </div>
+          <div class="col-2">
+            <label class="form-label small">Size</label>
+            <input type="text" class="form-control form-control-sm item-size" placeholder="e.g., S, L, XL">
+          </div>
+          <div class="col-2">
+            <label class="form-label small">Qty</label>
+            <input type="number" min="1" class="form-control form-control-sm item-qty" placeholder="e.g., 5">
+          </div>
+          <div class="col-1 text-end">
+            <button type="button" class="btn btn-sm btn-outline-danger remove-item">−</button>
+          </div>
+        `;
+        container.appendChild(row);
+        row.querySelector('.remove-item').addEventListener('click', () => {
+          row.remove();
+        });
+        return row;
+      }
+
+      // Add buttons handlers per category
+      const addButtons = [
+        { btn: 'add_workwear_item', list: 'workwear_items' },
+        { btn: 'add_highvis_item', list: 'highvis_items' },
+        { btn: 'add_footwear_item', list: 'footwear_items' },
+        { btn: 'add_gloves_item', list: 'gloves_items' },
+        { btn: 'add_sitesafety_item', list: 'sitesafety_items' },
+      ];
+
+      addButtons.forEach(({ btn, list }) => {
+        const b = document.getElementById(btn);
+        if (b) {
+          b.addEventListener('click', () => createItemRow(list));
+        }
+      });
+
       // Handle product category checkbox interactions
       const checkboxes = document.querySelectorAll('.product-checkbox');
       
@@ -685,18 +763,33 @@
             const inputs = detailsDiv.querySelectorAll('input, textarea');
             const categoryLabel = checkbox.closest('.form-check').querySelector('strong').textContent;
             
+            // Collect itemized rows
+            const itemRows = detailsDiv.querySelectorAll('.itemized-list .item-row');
+            const items = [];
+            itemRows.forEach(row => {
+              const product = row.querySelector('.item-product')?.value.trim();
+              const color = row.querySelector('.item-color')?.value.trim();
+              const size = row.querySelector('.item-size')?.value.trim();
+              const qty = row.querySelector('.item-qty')?.value.trim();
+              if (product || color || size || qty) {
+                items.push({ product, color, size, qty });
+              }
+            });
+
+            // Freeform fields
+            const freeformQty = detailsDiv.querySelector('.freeform-qty')?.value.trim() || '';
+            const freeformSizes = detailsDiv.querySelector('.freeform-sizes')?.value.trim() || '';
+            const freeformNotes = detailsDiv.querySelector('.freeform-notes')?.value.trim() || '';
+
             let productDetails = {
               category: categoryLabel,
-              quantities: inputs[0]?.value.trim() || '',
-              sizes: inputs[1]?.value.trim() || '',
-              details: inputs[2]?.value.trim() || ''
+              items,
+              freeform: {
+                quantities: freeformQty,
+                sizes: freeformSizes,
+                details: freeformNotes
+              }
             };
-
-            // Handle categories with only 2 inputs (no sizes)
-            if (inputs.length === 2) {
-              productDetails.sizes = '';
-              productDetails.details = inputs[1]?.value.trim() || '';
-            }
 
             selectedProducts.push(productDetails);
           }
@@ -726,9 +819,15 @@
 
         selectedProducts.forEach((product, index) => {
           formattedMessage += `${index + 1}. ${product.category}\n`;
-          if (product.quantities) formattedMessage += `   Quantities: ${product.quantities}\n`;
-          if (product.sizes) formattedMessage += `   Sizes: ${product.sizes}\n`;
-          if (product.details) formattedMessage += `   Details: ${product.details}\n`;
+          if (product.items && product.items.length) {
+            product.items.forEach(it => {
+              formattedMessage += `   - ${it.qty || ''} ${it.product || ''}${it.color ? ' – ' + it.color : ''}${it.size ? ' – ' + it.size : ''}\n`;
+            });
+          }
+          const ff = product.freeform || {};
+          if (ff.quantities) formattedMessage += `   Quantities (freeform): ${ff.quantities}\n`;
+          if (ff.sizes) formattedMessage += `   Sizes (freeform): ${ff.sizes}\n`;
+          if (ff.details) formattedMessage += `   Details: ${ff.details}\n`;
           formattedMessage += `\n`;
         });
 
