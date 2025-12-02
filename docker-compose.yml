@@ -6,8 +6,8 @@ services:
     container_name: leetshego-nginx
     restart: unless-stopped
     ports:
-      - "8080:80"
-      - "8443:443"
+      - "9080:80"   # HTTP for leetshego.co.za
+      - "9443:443"  # HTTPS for leetshego.co.za
     volumes:
       - /home/mulalo/logs/lss_construction:/var/log/nginx
       - /etc/letsencrypt:/etc/letsencrypt:ro
@@ -15,9 +15,10 @@ services:
       - leetshego-network
     # Temporarily disable dependency on quote-api until SMTP credentials are provided
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      # Busybox wget inside alpine nginx image: use 127.0.0.1 to bypass hostname server selection
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1/health >/dev/null 2>&1 || exit 1"]
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
       start_period: 10s
 
