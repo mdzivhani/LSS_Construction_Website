@@ -674,46 +674,101 @@
   <!-- Quote form functionality -->
   <script>
     (function() {
-      function createItemRow(containerId, sizeSet = 'generic', categoryKey = 'generic') {
+      function createItemRow(containerId, categoryKey = 'generic') {
         const container = document.getElementById(containerId);
         const row = document.createElement('div');
         row.className = 'row g-2 align-items-end mb-2 item-row';
-        // Build options by set
-        const sizeOptions = {
-          workwear: ['S','M','L','XL','XXL','XXXL'],
-          highvis: ['S','M','L','XL','XXL','XXXL'],
-          gloves: ['S','M','L','XL'],
-          footwear: ['3','4','5','6','7','8','9','10','11','12','13'],
-          none: [],
-          generic: []
+        
+        // Size options per category - with product-specific sizes
+        const sizeOptionsMap = {
+          workwear: {
+            default: ['S','M','L','XL','XXL','XXXL']
+          },
+          highvis: {
+            default: ['S','M','L','XL','XXL','XXXL']
+          },
+          gloves: {
+            default: ['S','M','L','XL']
+          },
+          footwear: {
+            default: ['3','4','5','6','7','8','9','10','11','12','13']
+          },
+          eyeface: {
+            default: [] // Universal fit - no sizes needed
+          },
+          respiratory: {
+            'Dust Mask': ['N95','N99','FFP1','FFP2','FFP3'],
+            'Respirator': ['Small','Medium','Large'],
+            'Half-Face Respirator': ['Small','Medium','Large'],
+            'Full-Face Respirator': ['Small','Medium','Large'],
+            default: [] // Filters/cartridges don't need sizes
+          },
+          headhearing: {
+            'Hard Hat': ['Standard','Vented'],
+            'Bump Cap': ['Standard'],
+            'Hard Hat with Visor': ['Standard','Vented'],
+            default: [] // Earplugs/earmuffs are universal fit
+          },
+          fallarrest: {
+            'Full Body Harness': ['S/M','L/XL','XXL'],
+            'Lanyard': ['1.5m','2m','3m'],
+            default: [] // Anchor points, lifelines don't need sizes
+          },
+          firstaid: {
+            'First Aid Kit': ['Small (1-10 people)','Medium (11-25 people)','Large (26-50 people)','Extra Large (50+ people)'],
+            default: [] // Bandages, burn care, etc. don't need sizes
+          },
+          sitesafety: {
+            'Fire Extinguisher': ['1kg','2kg','4kg','6kg','9kg'],
+            'Traffic Cone': ['450mm','750mm','900mm'],
+            'Barrier': ['1.2m','1.8m','2.4m'],
+            'Safety Sign': ['300x200mm','450x300mm','600x400mm','900x600mm'],
+            default: [] // Wheel chocks, caution tape don't need sizes
+          }
         };
+        
         const productOptionsMap = {
           workwear: ['Rain Suit','Conti Suit','Overalls','Reflective Jacket','Acid Resistant Overall','Flame Retardant Overall','Winter Jacket','Dust Coat'],
           highvis: ['Reflective Vest','Hi-Vis Jacket','Hi-Vis Rainwear','Hi-Vis T-Shirt','Hi-Vis Pants'],
           footwear: ['Safety Boots','Chelsea Boots','Gumboots','Slip-Resistant Shoes','Steel Toe Boots'],
           eyeface: ['Safety Glasses','Goggles','Face Shield','Welding Helmet','Reading Safety Glasses'],
           gloves: ['Nitrile Gloves','Leather Gloves','Rubber Gloves','Work Gloves','PVC Gloves','Cotton Gloves','Cut-Resistant Gloves'],
-          respiratory: ['Dust Mask','Respirator','Filter','Cartridge','N95 Mask','Half-Face Respirator','Full-Face Respirator'],
+          respiratory: ['Dust Mask','Respirator','Filter','Cartridge','Half-Face Respirator','Full-Face Respirator'],
           headhearing: ['Hard Hat','Bump Cap','Earplugs','Earmuffs','Hard Hat with Visor'],
           fallarrest: ['Full Body Harness','Lanyard','Anchor Point','Lifeline','Shock Absorber','Rope Grab'],
-          firstaid: ['First Aid Kit (Small)','First Aid Kit (Medium)','First Aid Kit (Large)','Bandages','Burn Care','Eye Wash Station','Stretcher','Splints'],
-          sitesafety: ['Traffic Cone','Barrier','Safety Sign','Fire Extinguisher (1kg)','Fire Extinguisher (2kg)','Fire Extinguisher (4kg)','Fire Extinguisher (6kg)','Fire Extinguisher (9kg)','Wheel Chocks','Caution Tape','Speed Bump'],
+          firstaid: ['First Aid Kit','Bandages','Burn Care','Eye Wash Station','Stretcher','Splints'],
+          sitesafety: ['Traffic Cone','Barrier','Safety Sign','Fire Extinguisher','Wheel Chocks','Caution Tape','Speed Bump'],
           generic: []
         };
         const colorOptionsMap = {
-          workwear: ['Black','Navy','Blue','Grey','Orange','Yellow','Green','Khaki'],
-          highvis: ['Yellow','Orange','Green','Lime','Red'],
-          footwear: ['Black','Brown','Tan'],
-          eyeface: ['Clear','Tinted','Smoke','Yellow (Night Vision)'],
-          gloves: ['Black','Blue','Grey','Yellow','White','Orange','Green'],
-          respiratory: ['White','Blue','Grey'],
-          headhearing: ['White','Yellow','Orange','Blue','Red','Green'],
-          fallarrest: ['Black','Yellow','Orange','Red'],
-          firstaid: ['Red','White','Green'],
-          sitesafety: ['Red','Orange','Yellow','White','Black','Blue'],
+          workwear: ['Black','Navy','Blue','Grey','Orange','Yellow','Green','Khaki','Brown'],
+          highvis: ['Yellow','Orange','Lime','Red','Pink'],
+          footwear: ['Black','Brown','Tan','Grey'],
+          eyeface: ['Clear','Tinted','Smoke','Yellow (Night Vision)','Green (Welding)'],
+          gloves: ['Black','Blue','Grey','Yellow','White','Orange','Green','Red','Brown'],
+          respiratory: [], // No color needed - standardized
+          headhearing: ['White','Yellow','Orange','Blue','Red','Green','Black'],
+          fallarrest: ['Black','Yellow','Orange','Red','Blue'],
+          firstaid: [], // No color needed - standardized red/white
+          sitesafety: ['Red','Orange','Yellow','White','Black','Blue','Green'],
           generic: []
         };
-        const optionsHtml = (sizeOptions[sizeSet] || []).map(s => `<option value="${s}">${s}</option>`).join('');
+        
+        // Get size options based on category and selected product
+        function getSizeOptions(categoryKey, productName) {
+          const categoryMap = sizeOptionsMap[categoryKey];
+          if (!categoryMap) return [];
+          
+          // Check if product has specific sizes
+          if (categoryMap[productName]) {
+            return categoryMap[productName];
+          }
+          
+          // Return default sizes for category
+          return categoryMap.default || [];
+        }
+        
+        const optionsHtml = getSizeOptions(categoryKey, '').map(s => `<option value="${s}">${s}</option>`).join('');
         const productOptionsHtml = (productOptionsMap[categoryKey] || []).map(p => `<option value="${p}">${p}</option>`).join('');
         const colorOptionsHtml = (colorOptionsMap[categoryKey] || []).map(c => `<option value="${c}">${c}</option>`).join('');
 
@@ -722,13 +777,13 @@
             <label class="form-label small">Product</label>
             ${(productOptionsHtml.length ? `<select class="form-select form-select-sm item-product"><option value="">Select</option>${productOptionsHtml}<option value="__other">Other…</option></select><input type="text" class="form-control form-control-sm item-product-other mt-1" placeholder="Enter product" style="display:none;">` : `<input type="text" class="form-control form-control-sm item-product" placeholder="Enter product">`)}
           </div>
-          <div class="col-3">
+          <div class="col-3 item-color-col">
             <label class="form-label small">Color</label>
             ${(colorOptionsHtml.length ? `<select class="form-select form-select-sm item-color"><option value="">Select</option>${colorOptionsHtml}<option value="__other">Other…</option></select><input type="text" class="form-control form-control-sm item-color-other mt-1" placeholder="Enter color" style="display:none;">` : `<input type="text" class="form-control form-control-sm item-color" placeholder="Optional">`)}
           </div>
-          <div class="col-2">
+          <div class="col-2 item-size-col">
             <label class="form-label small">Size</label>
-            ${optionsHtml.length ? `<select class="form-select form-select-sm item-size"><option value="">Select</option>${optionsHtml}</select>` : `<input type="text" class="form-control form-control-sm item-size" placeholder="Optional">`}
+            ${optionsHtml.length ? `<select class="form-select form-select-sm item-size"><option value="">Select</option>${optionsHtml}</select>` : `<select class="form-select form-select-sm item-size"><option value="">N/A</option></select>`}
           </div>
           <div class="col-2">
             <label class="form-label small">Qty</label>
@@ -745,60 +800,34 @@
         `;
         container.appendChild(row);
         
-        // Product-specific intelligence: hide/show fields based on product type
+        // Product-specific intelligence: hide/show fields and update sizes based on product type
         const productSel = row.querySelector('.item-product');
         const productOther = row.querySelector('.item-product-other');
-        const colorCol = row.querySelector('.col-3');
-        const sizeCol = row.querySelector('.col-2:first-of-type');
+        const colorCol = row.querySelector('.item-color-col');
+        const sizeCol = row.querySelector('.item-size-col');
         const colorSel = row.querySelector('.item-color');
         const colorOther = row.querySelector('.item-color-other');
         const sizeSel = row.querySelector('.item-size');
         const qtySel = row.querySelector('.item-qty');
         const qtyOther = row.querySelector('.item-qty-other');
 
-        // Define products that don't need color/size based on real-world product characteristics
+        // Define products that don't need color based on real-world logic
         const noColorNeeded = [
-          // Site Safety - standardized equipment
-          'Fire Extinguisher (1kg)', 'Fire Extinguisher (2kg)', 'Fire Extinguisher (4kg)', 
-          'Fire Extinguisher (6kg)', 'Fire Extinguisher (9kg)', 'Wheel Chocks', 'Barrier', 
-          'Safety Sign', 'Caution Tape', 'Speed Bump',
-          // First Aid - standardized medical supplies
-          'First Aid Kit (Small)', 'First Aid Kit (Medium)', 'First Aid Kit (Large)', 
-          'Eye Wash Station', 'Bandages', 'Burn Care', 'Stretcher', 'Splints',
-          // Respiratory - typically white/standard color
-          'Dust Mask', 'Respirator', 'Filter', 'Cartridge', 'N95 Mask', 'Half-Face Respirator', 'Full-Face Respirator',
-          // Fall Arrest - safety critical items with standard colors
-          'Anchor Point', 'Lifeline', 'Shock Absorber', 'Rope Grab',
-          // Eye/Face - clear or tinted only (specified elsewhere)
-          'Safety Glasses', 'Goggles', 'Face Shield', 'Welding Helmet', 'Reading Safety Glasses'
+          // Respiratory - standardized white/medical
+          'Dust Mask', 'Respirator', 'Filter', 'Cartridge', 'Half-Face Respirator', 'Full-Face Respirator',
+          // First Aid - standardized red/white medical
+          'First Aid Kit', 'Bandages', 'Burn Care', 'Eye Wash Station', 'Stretcher', 'Splints',
+          // Some fall arrest equipment - standardized for safety
+          'Anchor Point', 'Lifeline', 'Shock Absorber', 'Rope Grab'
         ];
         
+        // Products that never need sizes (universal fit or non-wearable)
         const noSizeNeeded = [
-          // Site Safety - no clothing sizes
-          'Fire Extinguisher (1kg)', 'Fire Extinguisher (2kg)', 'Fire Extinguisher (4kg)',
-          'Fire Extinguisher (6kg)', 'Fire Extinguisher (9kg)', 'Wheel Chocks', 'Barrier', 
-          'Traffic Cone', 'Safety Sign', 'Caution Tape', 'Speed Bump',
-          // First Aid - size already in product name or not applicable
-          'First Aid Kit (Small)', 'First Aid Kit (Medium)', 'First Aid Kit (Large)', 
-          'Eye Wash Station', 'Bandages', 'Burn Care', 'Stretcher', 'Splints',
-          // Respiratory - universal fit or size specified differently
-          'Dust Mask', 'Respirator', 'Filter', 'Cartridge', 'N95 Mask', 'Half-Face Respirator', 'Full-Face Respirator',
-          // Fall Arrest - universal or specified separately
+          'Earplugs', 'Earmuffs', 'Wheel Chocks', 'Caution Tape', 'Speed Bump',
+          'Filter', 'Cartridge', 'Eye Wash Station', 'Bandages', 'Burn Care',
           'Anchor Point', 'Lifeline', 'Shock Absorber', 'Rope Grab',
-          // Eye/Face - universal fit or adjustable
-          'Safety Glasses', 'Goggles', 'Face Shield', 'Welding Helmet', 'Reading Safety Glasses',
-          // Head/Hearing - universal fit items
-          'Earplugs', 'Earmuffs'
+          'Safety Glasses', 'Goggles', 'Face Shield', 'Welding Helmet', 'Reading Safety Glasses', 'Stretcher', 'Splints'
         ];
-        
-        const onlyShoeSize = ['Safety Boots', 'Chelsea Boots', 'Gumboots', 'Slip-Resistant Shoes', 'Steel Toe Boots'];
-        const onlyClothingSize = ['Rain Suit', 'Conti Suit', 'Overalls', 'Reflective Jacket', 
-                                  'Acid Resistant Overall', 'Flame Retardant Overall', 'Winter Jacket', 'Dust Coat',
-                                  'Reflective Vest', 'Hi-Vis Jacket', 'Hi-Vis Rainwear', 'Hi-Vis T-Shirt', 'Hi-Vis Pants',
-                                  'Full Body Harness', 'Lanyard'];
-        const onlyGloveSize = ['Nitrile Gloves', 'Leather Gloves', 'Rubber Gloves', 'Work Gloves', 
-                              'PVC Gloves', 'Cotton Gloves', 'Cut-Resistant Gloves'];
-        const onlyHatSize = ['Hard Hat', 'Bump Cap', 'Hard Hat with Visor'];
         
         function updateFieldVisibility(product) {
           // Hide color if not needed for this product
@@ -810,25 +839,40 @@
             colorCol.style.display = 'block';
           }
           
-          // Hide size if not needed for this product
-          if (noSizeNeeded.includes(product)) {
+          // Update size dropdown based on product
+          const sizeOptions = getSizeOptions(categoryKey, product);
+          if (noSizeNeeded.includes(product) || sizeOptions.length === 0) {
             sizeCol.style.display = 'none';
             if (sizeSel) sizeSel.value = '';
           } else {
             sizeCol.style.display = 'block';
+            // Rebuild size dropdown with product-specific options
+            sizeSel.innerHTML = '<option value="">Select</option>' + 
+              sizeOptions.map(s => `<option value="${s}">${s}</option>`).join('');
           }
           
-          // Update placeholder/label text based on product type for clarity
+          // Update size label for clarity
           const sizeLabel = sizeCol.querySelector('.form-label');
-          if (sizeLabel) {
-            if (onlyShoeSize.includes(product)) {
+          if (sizeLabel && sizeOptions.length > 0) {
+            // Determine appropriate label based on product type
+            if (product === 'Fire Extinguisher') {
+              sizeLabel.textContent = 'Weight';
+            } else if (['Traffic Cone', 'Barrier', 'Safety Sign'].includes(product)) {
+              sizeLabel.textContent = 'Dimensions';
+            } else if (product === 'Lanyard') {
+              sizeLabel.textContent = 'Length';
+            } else if (product === 'Dust Mask') {
+              sizeLabel.textContent = 'Filter Rating';
+            } else if (['Respirator', 'Half-Face Respirator', 'Full-Face Respirator'].includes(product)) {
+              sizeLabel.textContent = 'Face Size';
+            } else if (product === 'First Aid Kit') {
+              sizeLabel.textContent = 'Capacity';
+            } else if (['Safety Boots', 'Chelsea Boots', 'Gumboots', 'Slip-Resistant Shoes', 'Steel Toe Boots'].includes(product)) {
               sizeLabel.textContent = 'Shoe Size';
-            } else if (onlyGloveSize.includes(product)) {
+            } else if (['Nitrile Gloves', 'Leather Gloves', 'Rubber Gloves', 'Work Gloves', 'PVC Gloves', 'Cotton Gloves', 'Cut-Resistant Gloves'].includes(product)) {
               sizeLabel.textContent = 'Glove Size';
-            } else if (onlyHatSize.includes(product)) {
-              sizeLabel.textContent = 'Hat Size';
-            } else if (onlyClothingSize.includes(product)) {
-              sizeLabel.textContent = 'Clothing Size';
+            } else if (['Hard Hat', 'Bump Cap', 'Hard Hat with Visor'].includes(product)) {
+              sizeLabel.textContent = 'Type';
             } else {
               sizeLabel.textContent = 'Size';
             }
@@ -872,22 +916,22 @@
 
       // Add buttons handlers per category
       const addButtons = [
-        { btn: 'add_workwear_item', list: 'workwear_items', sizeSet: 'workwear', categoryKey: 'workwear' },
-        { btn: 'add_highvis_item', list: 'highvis_items', sizeSet: 'highvis', categoryKey: 'highvis' },
-        { btn: 'add_footwear_item', list: 'footwear_items', sizeSet: 'footwear', categoryKey: 'footwear' },
-        { btn: 'add_eyeface_item', list: 'eyeface_items', sizeSet: 'none', categoryKey: 'eyeface' },
-        { btn: 'add_gloves_item', list: 'gloves_items', sizeSet: 'gloves', categoryKey: 'gloves' },
-        { btn: 'add_respiratory_item', list: 'respiratory_items', sizeSet: 'none', categoryKey: 'respiratory' },
-        { btn: 'add_headhearing_item', list: 'headhearing_items', sizeSet: 'none', categoryKey: 'headhearing' },
-        { btn: 'add_fallarrest_item', list: 'fallarrest_items', sizeSet: 'none', categoryKey: 'fallarrest' },
-        { btn: 'add_firstaid_item', list: 'firstaid_items', sizeSet: 'none', categoryKey: 'firstaid' },
-        { btn: 'add_sitesafety_item', list: 'sitesafety_items', sizeSet: 'none', categoryKey: 'sitesafety' },
+        { btn: 'add_workwear_item', list: 'workwear_items', categoryKey: 'workwear' },
+        { btn: 'add_highvis_item', list: 'highvis_items', categoryKey: 'highvis' },
+        { btn: 'add_footwear_item', list: 'footwear_items', categoryKey: 'footwear' },
+        { btn: 'add_eyeface_item', list: 'eyeface_items', categoryKey: 'eyeface' },
+        { btn: 'add_gloves_item', list: 'gloves_items', categoryKey: 'gloves' },
+        { btn: 'add_respiratory_item', list: 'respiratory_items', categoryKey: 'respiratory' },
+        { btn: 'add_headhearing_item', list: 'headhearing_items', categoryKey: 'headhearing' },
+        { btn: 'add_fallarrest_item', list: 'fallarrest_items', categoryKey: 'fallarrest' },
+        { btn: 'add_firstaid_item', list: 'firstaid_items', categoryKey: 'firstaid' },
+        { btn: 'add_sitesafety_item', list: 'sitesafety_items', categoryKey: 'sitesafety' },
       ];
 
-      addButtons.forEach(({ btn, list, sizeSet, categoryKey }) => {
+      addButtons.forEach(({ btn, list, categoryKey }) => {
         const b = document.getElementById(btn);
         if (b) {
-          b.addEventListener('click', () => createItemRow(list, sizeSet, categoryKey));
+          b.addEventListener('click', () => createItemRow(list, categoryKey));
         }
       });
 
