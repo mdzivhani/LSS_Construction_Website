@@ -175,6 +175,21 @@
       border-radius: 5px;
       margin-bottom: 15px;
     }
+
+    /* Reduce blue info area spacing for better alignment */
+    .quote-info .quote-content {
+      padding: 1rem 1rem;
+    }
+    .quote-info .quote-content h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .quote-info .contact-items .contact-item {
+      margin-bottom: 0.5rem;
+    }
+    .quote-form-container .row.g-0 > [class^="col-"] {
+      padding: 1rem;
+    }
   </style>
 
   <!-- =======================================================
@@ -633,11 +648,11 @@
   <!-- Quote form functionality -->
   <script>
     (function() {
-      function createItemRow(containerId, sizeSet = 'generic') {
+      function createItemRow(containerId, sizeSet = 'generic', categoryKey = 'generic') {
         const container = document.getElementById(containerId);
         const row = document.createElement('div');
         row.className = 'row g-2 align-items-end mb-2 item-row';
-        // Build size select options by set
+        // Build options by set
         const sizeOptions = {
           workwear: ['S','M','L','XL','XXL','XXXL'],
           highvis: ['S','M','L','XL','XXL','XXXL'],
@@ -646,16 +661,44 @@
           none: [],
           generic: []
         };
+        const productOptionsMap = {
+          workwear: ['Rain Suit','Conti Suit','Overalls','Reflective Jacket','Acid Resistant Overall','Flame Retardant Overall'],
+          highvis: ['Reflective Vest','Hi-Vis Jacket','Hi-Vis Rainwear'],
+          footwear: ['Safety Boots','Chelsea Boots','Gumboots','Slip-Resistant Shoes'],
+          eyeface: ['Safety Glasses','Goggles','Face Shield','Welding Helmet'],
+          gloves: ['Nitrile Gloves','Leather Gloves','Rubber Gloves','Work Gloves'],
+          respiratory: ['Dust Mask','Respirator','Filter','Cartridge'],
+          headhearing: ['Hard Hat','Bump Cap','Earplugs','Earmuffs'],
+          fallarrest: ['Full Body Harness','Lanyard','Anchor Point','Lifeline'],
+          firstaid: ['First Aid Kit','Bandages','Burn Care','Eye Wash Station'],
+          sitesafety: ['Traffic Cone','Barrier','Safety Sign','Fire Extinguisher','Wheel Chocks'],
+          generic: []
+        };
+        const colorOptionsMap = {
+          workwear: ['Black','Navy','Blue','Grey','Orange','Yellow'],
+          highvis: ['Yellow','Orange','Green'],
+          footwear: ['Black','Brown'],
+          eyeface: ['Clear','Tinted'],
+          gloves: ['Black','Blue','Grey'],
+          respiratory: ['Standard'],
+          headhearing: ['White','Yellow','Orange','Blue'],
+          fallarrest: ['Standard'],
+          firstaid: ['Standard'],
+          sitesafety: ['Red','Orange','Yellow','White'],
+          generic: []
+        };
         const optionsHtml = (sizeOptions[sizeSet] || []).map(s => `<option value="${s}">${s}</option>`).join('');
+        const productOptionsHtml = (productOptionsMap[categoryKey] || []).map(p => `<option value="${p}">${p}</option>`).join('');
+        const colorOptionsHtml = (colorOptionsMap[categoryKey] || []).map(c => `<option value="${c}">${c}</option>`).join('');
 
         row.innerHTML = `
           <div class="col-4">
             <label class="form-label small">Product</label>
-            <input type="text" class="form-control form-control-sm item-product" placeholder="e.g., Rain Suit">
+            ${(productOptionsHtml.length ? `<select class="form-select form-select-sm item-product"><option value="">Select</option>${productOptionsHtml}<option value="__other">Other…</option></select><input type="text" class="form-control form-control-sm item-product-other mt-1" placeholder="Enter product" style="display:none;">` : `<input type="text" class="form-control form-control-sm item-product" placeholder="Enter product">`)}
           </div>
           <div class="col-3">
             <label class="form-label small">Color</label>
-            <input type="text" class="form-control form-control-sm item-color" placeholder="e.g., Black/White">
+            ${(colorOptionsHtml.length ? `<select class="form-select form-select-sm item-color"><option value="">Select</option>${colorOptionsHtml}<option value="__other">Other…</option></select><input type="text" class="form-control form-control-sm item-color-other mt-1" placeholder="Enter color" style="display:none;">` : `<input type="text" class="form-control form-control-sm item-color" placeholder="Optional">`)}
           </div>
           <div class="col-2">
             <label class="form-label small">Size</label>
@@ -663,13 +706,43 @@
           </div>
           <div class="col-2">
             <label class="form-label small">Qty</label>
-            <input type="number" min="1" class="form-control form-control-sm item-qty" placeholder="e.g., 5">
+            <select class="form-select form-select-sm item-qty">
+              <option value="">Select</option>
+              ${Array.from({length:20}, (_,i)=>`<option value="${i+1}">${i+1}</option>`).join('')}
+              <option value="__other">Other…</option>
+            </select>
+            <input type="number" min="1" class="form-control form-control-sm item-qty-other mt-1" placeholder="Enter quantity" style="display:none;">
           </div>
           <div class="col-1 text-end">
             <button type="button" class="btn btn-sm btn-outline-danger remove-item">−</button>
           </div>
         `;
         container.appendChild(row);
+        // Toggle Other inputs visibility
+        const productSel = row.querySelector('.item-product');
+        const productOther = row.querySelector('.item-product-other');
+        if (productSel && productOther) {
+          productSel.addEventListener('change', () => {
+            productOther.style.display = productSel.value === '__other' ? 'block' : 'none';
+            if (productSel.value !== '__other') productOther.value = '';
+          });
+        }
+        const colorSel = row.querySelector('.item-color');
+        const colorOther = row.querySelector('.item-color-other');
+        if (colorSel && colorOther) {
+          colorSel.addEventListener('change', () => {
+            colorOther.style.display = colorSel.value === '__other' ? 'block' : 'none';
+            if (colorSel.value !== '__other') colorOther.value = '';
+          });
+        }
+        const qtySel = row.querySelector('.item-qty');
+        const qtyOther = row.querySelector('.item-qty-other');
+        if (qtySel && qtyOther) {
+          qtySel.addEventListener('change', () => {
+            qtyOther.style.display = qtySel.value === '__other' ? 'block' : 'none';
+            if (qtySel.value !== '__other') qtyOther.value = '';
+          });
+        }
         row.querySelector('.remove-item').addEventListener('click', () => {
           row.remove();
         });
@@ -678,17 +751,17 @@
 
       // Add buttons handlers per category
       const addButtons = [
-        { btn: 'add_workwear_item', list: 'workwear_items', sizeSet: 'workwear' },
-        { btn: 'add_highvis_item', list: 'highvis_items', sizeSet: 'highvis' },
-        { btn: 'add_footwear_item', list: 'footwear_items', sizeSet: 'footwear' },
-        { btn: 'add_gloves_item', list: 'gloves_items', sizeSet: 'gloves' },
-        { btn: 'add_sitesafety_item', list: 'sitesafety_items', sizeSet: 'none' },
+        { btn: 'add_workwear_item', list: 'workwear_items', sizeSet: 'workwear', categoryKey: 'workwear' },
+        { btn: 'add_highvis_item', list: 'highvis_items', sizeSet: 'highvis', categoryKey: 'highvis' },
+        { btn: 'add_footwear_item', list: 'footwear_items', sizeSet: 'footwear', categoryKey: 'footwear' },
+        { btn: 'add_gloves_item', list: 'gloves_items', sizeSet: 'gloves', categoryKey: 'gloves' },
+        { btn: 'add_sitesafety_item', list: 'sitesafety_items', sizeSet: 'none', categoryKey: 'sitesafety' },
       ];
 
-      addButtons.forEach(({ btn, list, sizeSet }) => {
+      addButtons.forEach(({ btn, list, sizeSet, categoryKey }) => {
         const b = document.getElementById(btn);
         if (b) {
-          b.addEventListener('click', () => createItemRow(list, sizeSet));
+          b.addEventListener('click', () => createItemRow(list, sizeSet, categoryKey));
         }
       });
 
@@ -769,10 +842,41 @@
             const itemRows = detailsDiv.querySelectorAll('.itemized-list .item-row');
             const items = [];
             itemRows.forEach(row => {
-              const product = row.querySelector('.item-product')?.value.trim();
-              const color = row.querySelector('.item-color')?.value.trim();
-              const size = row.querySelector('.item-size')?.value.trim();
-              const qty = row.querySelector('.item-qty')?.value.trim();
+              // Product can be select or input
+              let product = '';
+              const productSel = row.querySelector('.item-product');
+              const productOther = row.querySelector('.item-product-other');
+              if (productSel && productSel.tagName === 'SELECT') {
+                product = productSel.value === '__other' ? (productOther?.value.trim() || '') : (productSel.value || '');
+              } else {
+                product = row.querySelector('.item-product')?.value.trim() || '';
+              }
+              // Color can be select or input
+              let color = '';
+              const colorSel = row.querySelector('.item-color');
+              const colorOther = row.querySelector('.item-color-other');
+              if (colorSel && colorSel.tagName === 'SELECT') {
+                color = colorSel.value === '__other' ? (colorOther?.value.trim() || '') : (colorSel.value || '');
+              } else {
+                color = row.querySelector('.item-color')?.value.trim() || '';
+              }
+              // Size can be select or input
+              let size = '';
+              const sizeSel = row.querySelector('.item-size');
+              if (sizeSel && sizeSel.tagName === 'SELECT') {
+                size = sizeSel.value || '';
+              } else {
+                size = row.querySelector('.item-size')?.value.trim() || '';
+              }
+              // Qty can be select or input
+              let qty = '';
+              const qtySel = row.querySelector('.item-qty');
+              const qtyOther = row.querySelector('.item-qty-other');
+              if (qtySel && qtySel.tagName === 'SELECT') {
+                qty = qtySel.value === '__other' ? (qtyOther?.value.trim() || '') : (qtySel.value || '');
+              } else {
+                qty = row.querySelector('.item-qty')?.value.trim() || '';
+              }
               if (product || color || size || qty) {
                 items.push({ product, color, size, qty });
               }
