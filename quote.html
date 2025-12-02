@@ -183,6 +183,7 @@
     .quote-info .quote-content h1 {
       font-size: 1.75rem;
       margin-bottom: 0.75rem;
+      color: white;
     }
     .quote-info .contact-items .contact-item {
       margin-bottom: 0.5rem;
@@ -242,8 +243,8 @@
         <div class="row justify-content-center">
           <div class="col-lg-10">
             <div class="quote-form-container">
-              <div class="row g-0">
-                <div class="col-lg-5">
+              <div class="row g-1">
+                <div class="col-lg-4">
                   <div class="quote-info">
                     <div class="quote-content">
                       <h1 class="mb-4">Request a Quote</h1>
@@ -296,7 +297,7 @@
                   </div>
                 </div>
 
-                <div class="col-lg-7">
+                <div class="col-lg-8">
                   <div class="quote-form-wrapper">
                     <form id="quoteForm" class="php-email-form" data-aos="fade-left" data-aos-delay="200">
                       <div class="form-header">
@@ -408,8 +409,13 @@
                             </label>
                           </div>
                           <div id="details_eyeface" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 30x Safety Glasses, 5x Face Shields)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (tinted/clear, anti-fog, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_eyeface_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="eyeface_items"></div>
+                            <hr class="my-2">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (tinted/clear, anti-fog, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -443,8 +449,13 @@
                             </label>
                           </div>
                           <div id="details_respiratory" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 100x Dust Masks, 10x Respirators)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (filter type, protection level, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_respiratory_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="respiratory_items"></div>
+                            <hr class="my-2">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (filter type, protection level, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -458,8 +469,13 @@
                             </label>
                           </div>
                           <div id="details_headhearing" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 25x Hard Hats, 50x Earplugs)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (colors, ventilation, NRR rating, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_headhearing_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="headhearing_items"></div>
+                            <hr class="my-2">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (colors, ventilation, NRR rating, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -473,8 +489,13 @@
                             </label>
                           </div>
                           <div id="details_fallarrest" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 5x Full Body Harnesses, 5x Lanyards)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (working height, certification needs, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_fallarrest_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="fallarrest_items"></div>
+                            <hr class="my-2">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (working height, certification needs, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -488,8 +509,13 @@
                             </label>
                           </div>
                           <div id="details_firstaid" class="product-details" style="display:none;">
-                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 3x First Aid Kits, 1x Eye Wash Station)">
-                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (kit size, specific items needed, etc.)"></textarea>
+                            <div class="itemized-header d-flex align-items-center justify-content-between mb-2">
+                              <span class="small text-muted">Add itemized entries</span>
+                              <button type="button" class="btn btn-sm btn-outline-primary" id="add_firstaid_item">Add Item</button>
+                            </div>
+                            <div class="itemized-list" id="firstaid_items"></div>
+                            <hr class="my-2">
+                            <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (kit size, specific items needed, etc.)"></textarea>
                           </div>
                         </div>
 
@@ -754,7 +780,12 @@
         { btn: 'add_workwear_item', list: 'workwear_items', sizeSet: 'workwear', categoryKey: 'workwear' },
         { btn: 'add_highvis_item', list: 'highvis_items', sizeSet: 'highvis', categoryKey: 'highvis' },
         { btn: 'add_footwear_item', list: 'footwear_items', sizeSet: 'footwear', categoryKey: 'footwear' },
+        { btn: 'add_eyeface_item', list: 'eyeface_items', sizeSet: 'none', categoryKey: 'eyeface' },
         { btn: 'add_gloves_item', list: 'gloves_items', sizeSet: 'gloves', categoryKey: 'gloves' },
+        { btn: 'add_respiratory_item', list: 'respiratory_items', sizeSet: 'none', categoryKey: 'respiratory' },
+        { btn: 'add_headhearing_item', list: 'headhearing_items', sizeSet: 'none', categoryKey: 'headhearing' },
+        { btn: 'add_fallarrest_item', list: 'fallarrest_items', sizeSet: 'none', categoryKey: 'fallarrest' },
+        { btn: 'add_firstaid_item', list: 'firstaid_items', sizeSet: 'none', categoryKey: 'firstaid' },
         { btn: 'add_sitesafety_item', list: 'sitesafety_items', sizeSet: 'none', categoryKey: 'sitesafety' },
       ];
 
