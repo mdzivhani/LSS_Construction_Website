@@ -1,90 +1,1004 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Services - Leetshego Safety Solutions</title>
-  <meta name="description" content="Leetshego Safety Solutions services overview">
+  <title>Our Services - Leetshego Construction & Safety Solutions</title>
+  <meta name="description" content="Professional construction, maintenance services, and comprehensive health & safety wear including PPE, workwear, and safety equipment.">
+  <meta name="keywords" content="construction, brickwork, plastering, painting, maintenance, PPE, safety wear, workwear, high visibility, safety equipment, South Africa">
+
+  <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
   <style>
-    .services-hero { padding: 60px 0 30px; background: #f7f9fc; }
-    .services-hero h1 { font-size: 2rem; font-weight: 700; }
-    .service-card { border: 1px solid #e1e5ea; border-radius: 10px; padding: 24px; background:#fff; height:100%; transition: box-shadow .2s; }
-    .service-card:hover { box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    .services-hero {
+      background: linear-gradient(135deg, #14529d 0%, #102a49 100%);
+      color: #ffffff;
+      padding: 12px 0; /* even more compact header */
+      margin-top: 40px; /* reduce whitespace below navbar */
+    }
+
+    .services-hero h1 {
+      font-size: 32px; /* reduced title size */
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .services-hero p {
+      font-size: 16px; /* reduced subtitle */
+      opacity: 0.95;
+      margin-bottom: 0; /* remove extra space below */
+    }
+
+    .service-section {
+      padding: 1rem 0; /* further reduce vertical spacing */
+    }
+
+    .service-category-title {
+      font-size: 2.5rem;
+      color: #14529d;
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid #14529d;
+      font-weight: 700;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px; /* reduce padding */
+      height: 100%;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e0e0e0;
+      max-width: 320px; /* restrict width */
+      min-height: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(20,82,157,0.2);
+      border-color: #14529d;
+    }
+
+    .service-card h3 {
+      color: #333;
+      font-size: 20px; /* reduce heading size */
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .service-card h3 i,
+    .service-card .icon {
+      font-size: 28px; /* reduce icon size */
+    }
+
+    .service-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .service-card li {
+      padding: 0.5rem 0; /* tighter spacing */
+      padding-left: 2rem;
+      position: relative;
+      color: #666;
+      font-size: 14px; /* smaller text */
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    /* Reduce gutters between cards */
+    .service-section .row.g-4 {
+      --bs-gutter-x: 0.5rem; /* tighter horizontal gap */
+      --bs-gutter-y: 0.5rem; /* tighter vertical gap */
+    }
+
+    .service-card li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #14529d;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .gallery-section {
+      background: #f8f9fa;
+      padding: 5rem 0;
+      margin-top: 3rem;
+    }
+
+    .gallery-title {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .gallery-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: #fff;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.15);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: white;
+      padding: 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+
+    .gallery-overlay h4 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #14529d 0%, #102a49 100%);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #14529d;
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      color: #14529d;
+    }
+
+    .ppe-gallery-section {
+      background: white;
+      padding: 3rem 0;
+    }
+
+    .ppe-category {
+      margin-bottom: 4rem;
+    }
+
+    .ppe-category-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .ppe-category-header h3 {
+      font-size: 2rem;
+      color: #14529d;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .ppe-category-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .ppe-image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .ppe-image-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      aspect-ratio: 1;
+      background: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .ppe-image-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(20,82,157,0.2);
+    }
+
+    .ppe-image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .ppe-image-item:hover img {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .ppe-image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-hero h1 {
+        font-size: 2rem;
+      }
+
+      .services-hero p {
+        font-size: 1.1rem;
+      }
+
+      .service-category-title {
+        font-size: 1.8rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-title {
+        font-size: 1.8rem;
+      }
+    }
   </style>
 </head>
+
 <body class="services-page">
-<header id="header" class="header sticky-top">
-  <div class="branding d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/leetshegosafetylogo.jpg" alt="Leetshego Safety Solutions Logo" style="height:60px;width:auto;object-fit:contain;">
-      </a>
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html" class="active">Services</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+
+  <header id="header" class="header sticky-top">
+    <div class="branding d-flex align-items-cente">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="assets/img/leetshegosafetylogo.jpg" alt="Leetshego Safety Solutions" style="height: 60px; width: auto; max-width: 200px; object-fit: contain;">
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html" class="active">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
-<main class="main">
-  <section class="services-hero" data-aos="fade-up">
-    <div class="container">
-      <h1>Our Services</h1>
-      <p class="lead mb-0">Reliable, compliant safety product sourcing and distribution tailored to operational needs.</p>
-    </div>
-  </section>
-  <section class="section" data-aos="fade-up" data-aos-delay="100">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="service-card h-100">
-            <h5>High Visibility Gear Supply</h5>
-            <p>Provision of SANS-compliant reflective and high visibility apparel supporting industrial, construction, and logistics environments.</p>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section class="services-hero">
+      <div class="container text-center" data-aos="fade-up">
+        <h1>Our Services</h1>
+        <p>Professional construction, maintenance, and health & safety solutions delivered with excellence</p>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="service-section">
+      <div class="container">
+        <h2 class="service-category-title" data-aos="fade-up">Construction and Maintenance Services</h2>
+        
+        <div class="row g-4">
+          <!-- Brickwork and Plastering -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-card">
+              <h3><i class="bi bi-bricks"></i> Brickwork & Plastering</h3>
+              <ul>
+                <li>Residential and commercial brickwork</li>
+                <li>Plastering and finishing</li>
+                <li>Repairs and alterations</li>
+                <li>New construction and extensions</li>
+                <li>Boundary walls and structures</li>
+                <li>Quality finishing and detailing</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="service-card h-100">
-            <h5>Custom Branding</h5>
-            <p>Logo and identity application (screen print / embroidery) across jackets, vests, and other PPE items with durable finishes.</p>
+
+          <!-- Painting Services -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-card">
+              <h3><i class="bi bi-paint-bucket"></i> Painting Services</h3>
+              <ul>
+                <li>Interior and exterior painting</li>
+                <li>Residential properties</li>
+                <li>Commercial buildings</li>
+                <li>Surface preparation and finishing</li>
+                <li>Color consultation</li>
+                <li>Protective coatings</li>
+              </ul>
+            </div>
           </div>
+
+          <!-- General Maintenance -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card">
+              <h3><i class="bi bi-tools"></i> General Maintenance</h3>
+              <ul>
+                <li>Property maintenance</li>
+                <li>Building repairs</li>
+                <li>Renovation work</li>
+                <li>Structural improvements</li>
+                <li>Emergency repairs</li>
+                <li>Preventive maintenance</li>
+              </ul>
+            </div>
+          </div>
+
+          
         </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="service-card h-100">
-            <h5>Safety Wear Consulting</h5>
-            <p>Advisory on correct garment selection, compliance alignment, and replenishment cycles to reduce risk & cost.</p>
+      </div>
+    </section>
+
+    <!-- Industrial Cleaning Section -->
+    <section class="service-section">
+      <div class="container">
+        <h2 class="service-category-title" data-aos="fade-up">Industrial Cleaning</h2>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-card">
+              <h3><i class="bi bi-buildings"></i> Industrial Cleaning</h3>
+              <ul>
+                <li>Factory and warehouse cleaning</li>
+                <li>Machinery and equipment cleaning</li>
+                <li>High-dust area maintenance</li>
+                <li>Spill control and waste removal</li>
+                <li>Floor treatment and coatings</li>
+                <li>Compliance with health and safety standards</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Health and Safety Wear Section -->
+    <section id="health-and-safety-ppe" class="service-section" style="background: #f8f9fa;">
+      <div class="container">
+        <h2 class="service-category-title" data-aos="fade-up">Health and Safety Wear</h2>
+        
+        <div class="row g-4">
+          <!-- Workwear and Overalls -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-card">
+              <h3><i class="bi bi-person-workspace"></i> Workwear & Overalls</h3>
+              <ul>
+                <li>Conti suits</li>
+                <li>Flame retardant overalls</li>
+                <li>Acid resistant overalls</li>
+                <li>Rain suits</li>
+                <li>Reflective jackets</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- High Visibility Safety Wear -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="service-card">
+              <h3><i class="bi bi-exclamation-triangle"></i> High Visibility Wear</h3>
+              <ul>
+                <li>Reflective vests in various colours</li>
+                <li>High visibility jackets</li>
+                <li>High visibility rainwear</li>
+                <li>Compliant with safety standards</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Safety Footwear -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-card">
+              <h3><i class="bi bi-boot"></i> Safety Footwear</h3>
+              <ul>
+                <li>Steel toe safety boots</li>
+                <li>Chelsea boots</li>
+                <li>Gumboots</li>
+                <li>Slip resistant shoes</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Eye and Face Protection -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="service-card">
+              <h3><i class="bi bi-eyeglasses"></i> Eye & Face Protection</h3>
+              <ul>
+                <li>Safety spectacles in different styles</li>
+                <li>Goggles</li>
+                <li>Face shields</li>
+                <li>UV protection options</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Hand Protection -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card">
+              <h3><i class="bi bi-hand-thumbs-up"></i> Hand Protection</h3>
+              <ul>
+                <li>Leather gloves</li>
+                <li>PVC gloves</li>
+                <li>Chemical resistant gloves</li>
+                <li>Cut resistant gloves</li>
+                <li>Disposable gloves</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Respiratory Protection -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="350">
+            <div class="service-card">
+              <h3><i class="bi bi-lungs"></i> Respiratory Protection</h3>
+              <ul>
+                <li>Disposable masks</li>
+                <li>Half mask respirators</li>
+                <li>Full mask respirators</li>
+                <li>Filters and cartridges</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Head and Hearing Protection -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-card">
+              <h3><i class="bi bi-shield-check"></i> Head & Hearing Protection</h3>
+              <ul>
+                <li>Hard hats</li>
+                <li>Bump caps</li>
+                <li>Ear muffs</li>
+                <li>Ear plugs</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Fall Arrest and Harnesses -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="450">
+            <div class="service-card">
+              <h3><i class="bi bi-person-arms-up"></i> Fall Arrest & Harnesses</h3>
+              <ul>
+                <li>Safety harnesses</li>
+                <li>Lanyards</li>
+                <li>Retractable lifelines</li>
+                <li>Height safety equipment</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- First Aid and Medical Supplies -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-card">
+              <h3><i class="bi bi-heart-pulse"></i> First Aid & Medical</h3>
+              <ul>
+                <li>First aid kits</li>
+                <li>Refill packs</li>
+                <li>Medical consumables</li>
+                <li>Emergency supplies</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Site Safety and Traffic Management -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="550">
+            <div class="service-card">
+              <h3><i class="bi bi-cone-striped"></i> Site Safety & Traffic</h3>
+              <ul>
+                <li>Cones and flags</li>
+                <li>Barrier tape and wheel chocks</li>
+                <li>Fire extinguishers</li>
+                <li>Safety signs and road signs</li>
+                <li>STOP and warning signs</li>
+                <li>PPE requirement signs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PPE Product Galleries -->
+    <section class="ppe-gallery-section">
+      <div class="container">
+        <h2 class="service-category-title text-center" data-aos="fade-up">PPE Product Gallery</h2>
+
+        <!-- Workwear and Overalls -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-person-workspace"></i> Workwear & Overalls</h3>
+            <p>Conti suits, flame retardant and acid resistant overalls, rain suits and reflective jackets</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/workwear-overalls/page7_img10.png" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img10.png" alt="Workwear Product">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img11.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img11.jpeg" alt="Overalls">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img12.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img12.jpeg" alt="Conti Suits">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img13.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img13.jpeg" alt="Flame Retardant Overalls">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img14.jpeg" alt="Rain Suits">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img15.jpeg" alt="Reflective Jackets">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img16.jpeg" alt="Workwear">
+            </a>
+            <a href="img/services/ppe/workwear-overalls/page7_img17.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/workwear-overalls/page7_img17.jpeg" alt="Overalls">
+            </a>
+          </div>
+        </div>
+
+        <!-- High Visibility Safety Wear -->
+        <div id="high-visibility-clothing"></div>
+        <div id="reflective-products"></div>
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-exclamation-triangle"></i> High Visibility Safety Wear</h3>
+            <p>Reflective vests in various colours, high visibility jackets and rainwear</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/high-visibility/page8_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img2.jpeg" alt="Reflective Vest">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img3.jpeg" alt="High Visibility Jacket">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img4.jpeg" alt="Safety Vest">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img5.jpeg" alt="Hi-Vis Rainwear">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img6.jpeg" alt="Reflective Jacket">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img7.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img7.jpeg" alt="High Visibility Wear">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img8.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img8.jpeg" alt="Safety Jacket">
+            </a>
+            <a href="img/services/ppe/high-visibility/page8_img9.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/high-visibility/page8_img9.jpeg" alt="Hi-Vis Clothing">
+            </a>
+          </div>
+        </div>
+
+        <!-- Safety Footwear -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-boot"></i> Safety Footwear</h3>
+            <p>Steel toe safety boots, Chelsea boots, gumboots and slip resistant shoes</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/safety-footwear/page8_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img14.jpeg" alt="Safety Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img15.jpeg" alt="Steel Toe Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img16.jpeg" alt="Chelsea Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img17.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img17.jpeg" alt="Gumboots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img18.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img18.jpeg" alt="Safety Shoes">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img19.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img19.jpeg" alt="Slip Resistant Shoes">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img20.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img20.jpeg" alt="Work Boots">
+            </a>
+            <a href="img/services/ppe/safety-footwear/page8_img21.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/safety-footwear/page8_img21.jpeg" alt="Safety Footwear">
+            </a>
+          </div>
+        </div>
+
+        <!-- Eye and Face Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-eyeglasses"></i> Eye & Face Protection</h3>
+            <p>Safety spectacles in different styles, goggles, and face shields</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/eye-face-protection/page10_img9.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img9.jpeg" alt="Safety Spectacles">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img10.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img10.jpeg" alt="Safety Goggles">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img11.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img11.jpeg" alt="Face Shield">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img12.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img12.jpeg" alt="Eye Protection">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img13.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img13.jpeg" alt="Safety Glasses">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img14.jpeg" alt="Protective Eyewear">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img15.jpeg" alt="Goggles">
+            </a>
+            <a href="img/services/ppe/eye-face-protection/page10_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/eye-face-protection/page10_img16.jpeg" alt="Face Protection">
+            </a>
+          </div>
+        </div>
+
+        <!-- Hand Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-hand-thumbs-up"></i> Hand Protection</h3>
+            <p>Leather, PVC, chemical resistant, cut resistant and disposable gloves</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/hand-protection/page11_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img2.jpeg" alt="Work Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img2.jpeg" alt="Leather Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img3.jpeg" alt="PVC Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img4.jpeg" alt="Chemical Resistant Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img5.jpeg" alt="Cut Resistant Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img6.jpeg" alt="Disposable Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img7.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img7.jpeg" alt="Safety Gloves">
+            </a>
+            <a href="img/services/ppe/hand-protection/page11_img9.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/hand-protection/page11_img9.jpeg" alt="Protective Gloves">
+            </a>
+          </div>
+        </div>
+
+        <!-- Respiratory Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-lungs"></i> Respiratory Protection</h3>
+            <p>Disposable masks, half mask and full mask respirators, filters and cartridges</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/respiratory-protection/page13_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page13_img3.jpeg" alt="Disposable Masks">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page13_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page13_img5.jpeg" alt="Half Mask Respirator">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page13_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page13_img6.jpeg" alt="Full Mask Respirator">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page13_img7.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page13_img7.jpeg" alt="Filters and Cartridges">
+            </a>
+            <a href="img/services/ppe/respiratory-protection/page13_img8.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/respiratory-protection/page13_img8.jpeg" alt="Respiratory Protection">
+            </a>
+          </div>
+        </div>
+
+        <!-- Head and Hearing Protection -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-shield-check"></i> Head & Hearing Protection</h3>
+            <p>Hard hats, bump caps, ear muffs and ear plugs</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/head-hearing-protection/page12_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page12_img16.jpeg" alt="Hard Hats">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page12_img17.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page12_img17.jpeg" alt="Bump Caps">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page12_img18.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page12_img18.jpeg" alt="Ear Muffs">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page13_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page13_img2.jpeg" alt="Ear Plugs">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page12_img19.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page12_img19.jpeg" alt="Head Protection">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page12_img20.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page12_img20.jpeg" alt="Hearing Protection">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page12_img21.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page12_img21.jpeg" alt="Safety Helmets">
+            </a>
+            <a href="img/services/ppe/head-hearing-protection/page1_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/head-hearing-protection/page1_img2.jpeg" alt="Hard Hat">
+            </a>
+          </div>
+        </div>
+
+        <!-- Fall Arrest and Harnesses -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-person-arms-up"></i> Fall Arrest & Harnesses</h3>
+            <p>Safety harnesses, lanyards, and retractable lifelines</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/fall-arrest-harnesses/page13_img14.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page13_img14.jpeg" alt="Safety Harness">
+            </a>
+            <a href="img/services/ppe/fall-arrest-harnesses/page13_img15.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page13_img15.jpeg" alt="Lanyards">
+            </a>
+            <a href="img/services/ppe/fall-arrest-harnesses/page13_img16.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page13_img16.jpeg" alt="Retractable Lifeline">
+            </a>
+            <a href="img/services/ppe/fall-arrest-harnesses/page13_img17.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/fall-arrest-harnesses/page13_img17.jpeg" alt="Fall Arrest Equipment">
+            </a>
+          </div>
+        </div>
+
+        <!-- First Aid and Medical Supplies -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-heart-pulse"></i> First Aid & Medical Supplies</h3>
+            <p>First aid kits, refill packs and medical consumables</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/first-aid-medical/page13_img18.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page13_img18.jpeg" alt="First Aid Kit">
+            </a>
+            <a href="img/services/ppe/first-aid-medical/page13_img19.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page13_img19.jpeg" alt="Refill Packs">
+            </a>
+            <a href="img/services/ppe/first-aid-medical/page13_img20.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page13_img20.jpeg" alt="Medical Consumables">
+            </a>
+            <a href="img/services/ppe/first-aid-medical/page13_img21.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/first-aid-medical/page13_img21.jpeg" alt="First Aid Supplies">
+            </a>
+          </div>
+        </div>
+
+        <!-- Site Safety and Traffic Management -->
+        <div class="ppe-category" data-aos="fade-up">
+          <div class="ppe-category-header">
+            <h3><i class="bi bi-cone-striped"></i> Site Safety & Traffic Management</h3>
+            <p>Cones, flags, barrier tape, wheel chocks, fire extinguishers, and safety signs</p>
+          </div>
+          <div class="ppe-image-grid">
+            <a href="img/services/ppe/site-safety-traffic/page14_img2.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img2.jpeg" alt="Traffic Cones">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img3.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img3.jpeg" alt="Safety Flags">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img4.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img4.jpeg" alt="Barrier Tape">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img5.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img5.jpeg" alt="Wheel Chocks">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img6.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img6.jpeg" alt="Fire Extinguisher">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img7.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img7.jpeg" alt="Safety Signs">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img8.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img8.jpeg" alt="Road Signs">
+            </a>
+            <a href="img/services/ppe/site-safety-traffic/page14_img9.jpeg" class="ppe-image-item glightbox">
+              <img src="img/services/ppe/site-safety-traffic/page14_img9.jpeg" alt="Warning Signs">
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action - View Projects -->
+    <section class="gallery-section" style="background: #fff;">
+      <div class="container text-center">
+        <h2 class="gallery-title" data-aos="fade-up">View Our Completed Projects</h2>
+        <p class="gallery-subtitle" data-aos="fade-up" data-aos-delay="100">
+          Explore our portfolio of completed and in-progress construction projects
+        </p>
+        <a href="projects.html" class="cta-button" data-aos="fade-up" data-aos-delay="200">
+          Browse Our Projects
+        </a>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="container" data-aos="fade-up">
+        <h2>Ready to Start Your Project?</h2>
+        <p>Contact us today for a free consultation and quote</p>
+        <a href="contact.html" class="cta-button">Get a Free Quote</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Leetshego Construction & Safety</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>Quality construction, maintenance, and health & safety solutions</p>
+            <p>Professional PPE and workwear delivered with excellence</p>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Construction</h4>
+          <ul>
+            <li><a href="services.html#brickwork">Brickwork & Plastering</a></li>
+            <li><a href="services.html#painting">Painting Services</a></li>
+            <li><a href="services.html#maintenance">General Maintenance</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Safety Wear</h4>
+          <ul>
+            <li><a href="services.html#ppe">PPE & Workwear</a></li>
+            <li><a href="services.html#ppe">High Visibility</a></li>
+            <li><a href="services.html#ppe">Safety Equipment</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-12 footer-newsletter">
+          <h4>Contact Us</h4>
+          <p>Email: <a href="mailto:Leetshegoss@gmail.com">Leetshegoss@gmail.com</a></p>
+          <p>Phone: 078 287 9661 | 067 774 6135</p>
+          <p>WhatsApp: <a href="https://wa.me/27782879661?text=Hello%20Tshepo,%20I'm%20interested%20in%20LSS%20safety%20products" target="_blank">+27 78 287 9661</a></p>
+        </div>
+      </div>
     </div>
-  </section>
-</main>
-<footer id="footer" class="footer">
-  <div class="container text-center small">
-    <p class="mb-0">&copy; <span id="year"></span> Leetshego Safety Solutions. All Rights Reserved.</p>
-  </div>
-</footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/aos/aos.js"></script>
-<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="assets/js/main.js"></script>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Leetshego Construction & Safety</strong> <span>All Rights Reserved</span></p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Initialize GLightbox for gallery
+    const lightbox = GLightbox({
+      selector: '.glightbox',
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: true
+    });
+  </script>
+
 </body>
+
 </html>
