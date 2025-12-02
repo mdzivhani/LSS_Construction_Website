@@ -339,8 +339,6 @@
                             </div>
                             <div class="itemized-list" id="workwear_items"></div>
                             <hr class="my-2">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional) e.g., S, M, L, XL">
                             <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (colors, specs, branding, etc.)"></textarea>
                           </div>
                         </div>
@@ -361,8 +359,6 @@
                             </div>
                             <div class="itemized-list" id="highvis_items"></div>
                             <hr class="my-2">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional)">
                             <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (tape specs, colors, etc.)"></textarea>
                           </div>
                         </div>
@@ -383,8 +379,6 @@
                             </div>
                             <div class="itemized-list" id="footwear_items"></div>
                             <hr class="my-2">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional)">
                             <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (boot type, steel toe specs, etc.)"></textarea>
                           </div>
                         </div>
@@ -420,8 +414,6 @@
                             </div>
                             <div class="itemized-list" id="gloves_items"></div>
                             <hr class="my-2">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-sizes" placeholder="Freeform sizes (optional)">
                             <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (glove type, grip, etc.)"></textarea>
                           </div>
                         </div>
@@ -502,7 +494,6 @@
                             </div>
                             <div class="itemized-list" id="sitesafety_items"></div>
                             <hr class="my-2">
-                            <input type="text" class="form-control form-control-sm mb-2 freeform-qty" placeholder="Freeform quantities (optional)">
                             <textarea class="form-control form-control-sm freeform-notes" rows="2" placeholder="Additional details (sign types, barrier specs, etc.)"></textarea>
                           </div>
                         </div>
@@ -776,17 +767,13 @@
               }
             });
 
-            // Freeform fields
-            const freeformQty = detailsDiv.querySelector('.freeform-qty')?.value.trim() || '';
-            const freeformSizes = detailsDiv.querySelector('.freeform-sizes')?.value.trim() || '';
+            // Freeform field: only additional details
             const freeformNotes = detailsDiv.querySelector('.freeform-notes')?.value.trim() || '';
 
             let productDetails = {
               category: categoryLabel,
               items,
               freeform: {
-                quantities: freeformQty,
-                sizes: freeformSizes,
                 details: freeformNotes
               }
             };
@@ -825,8 +812,6 @@
             });
           }
           const ff = product.freeform || {};
-          if (ff.quantities) formattedMessage += `   Quantities (freeform): ${ff.quantities}\n`;
-          if (ff.sizes) formattedMessage += `   Sizes (freeform): ${ff.sizes}\n`;
           if (ff.details) formattedMessage += `   Details: ${ff.details}\n`;
           formattedMessage += `\n`;
         });
