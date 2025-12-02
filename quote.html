@@ -633,10 +633,21 @@
   <!-- Quote form functionality -->
   <script>
     (function() {
-      function createItemRow(containerId) {
+      function createItemRow(containerId, sizeSet = 'generic') {
         const container = document.getElementById(containerId);
         const row = document.createElement('div');
         row.className = 'row g-2 align-items-end mb-2 item-row';
+        // Build size select options by set
+        const sizeOptions = {
+          workwear: ['S','M','L','XL','XXL','XXXL'],
+          highvis: ['S','M','L','XL','XXL','XXXL'],
+          gloves: ['S','M','L','XL'],
+          footwear: ['3','4','5','6','7','8','9','10','11','12','13'],
+          none: [],
+          generic: []
+        };
+        const optionsHtml = (sizeOptions[sizeSet] || []).map(s => `<option value="${s}">${s}</option>`).join('');
+
         row.innerHTML = `
           <div class="col-4">
             <label class="form-label small">Product</label>
@@ -648,7 +659,7 @@
           </div>
           <div class="col-2">
             <label class="form-label small">Size</label>
-            <input type="text" class="form-control form-control-sm item-size" placeholder="e.g., S, L, XL">
+            ${optionsHtml.length ? `<select class="form-select form-select-sm item-size"><option value="">Select</option>${optionsHtml}</select>` : `<input type="text" class="form-control form-control-sm item-size" placeholder="Optional">`}
           </div>
           <div class="col-2">
             <label class="form-label small">Qty</label>
@@ -667,17 +678,17 @@
 
       // Add buttons handlers per category
       const addButtons = [
-        { btn: 'add_workwear_item', list: 'workwear_items' },
-        { btn: 'add_highvis_item', list: 'highvis_items' },
-        { btn: 'add_footwear_item', list: 'footwear_items' },
-        { btn: 'add_gloves_item', list: 'gloves_items' },
-        { btn: 'add_sitesafety_item', list: 'sitesafety_items' },
+        { btn: 'add_workwear_item', list: 'workwear_items', sizeSet: 'workwear' },
+        { btn: 'add_highvis_item', list: 'highvis_items', sizeSet: 'highvis' },
+        { btn: 'add_footwear_item', list: 'footwear_items', sizeSet: 'footwear' },
+        { btn: 'add_gloves_item', list: 'gloves_items', sizeSet: 'gloves' },
+        { btn: 'add_sitesafety_item', list: 'sitesafety_items', sizeSet: 'none' },
       ];
 
-      addButtons.forEach(({ btn, list }) => {
+      addButtons.forEach(({ btn, list, sizeSet }) => {
         const b = document.getElementById(btn);
         if (b) {
-          b.addEventListener('click', () => createItemRow(list));
+          b.addEventListener('click', () => createItemRow(list, sizeSet));
         }
       });
 
