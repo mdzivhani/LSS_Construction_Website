@@ -911,6 +911,17 @@
         row.querySelector('.remove-item').addEventListener('click', () => {
           row.remove();
         });
+        
+        // Smooth scroll the newly added item into view
+        // Use setTimeout to ensure DOM is updated before scrolling
+        setTimeout(() => {
+          row.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest',
+            inline: 'nearest'
+          });
+        }, 100);
+        
         return row;
       }
 
