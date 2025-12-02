@@ -27,6 +27,156 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <style>
+    .form-section-title {
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    .form-section-title h5 {
+      color: #14529d;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 1.1rem;
+    }
+
+    .form-section-title p {
+      margin-bottom: 0;
+    }
+
+    .product-category-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .product-category-item:hover {
+      background: #e9ecef;
+      border-color: #14529d;
+    }
+
+    .product-category-item.selected {
+      background: #e7f1ff;
+      border-color: #14529d;
+    }
+
+    .product-category-item .form-check {
+      margin-bottom: 0;
+    }
+
+    .product-category-item .form-check-input {
+      width: 1.25em;
+      height: 1.25em;
+      margin-top: 0.2em;
+      cursor: pointer;
+    }
+
+    .product-category-item .form-check-label {
+      cursor: pointer;
+      padding-left: 0.5rem;
+    }
+
+    .product-category-item .form-check-label strong {
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .product-details {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #dee2e6;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product-details input,
+    .product-details textarea {
+      font-size: 0.9rem;
+    }
+
+    #productSelection {
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    #productSelection::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #productSelection::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    #productSelection::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+
+    #productSelection::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .quote-form-wrapper button[type="submit"] {
+      background: #14529d;
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .quote-form-wrapper button[type="submit"]:hover {
+      background: #0d3a6f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(20, 82, 157, 0.3);
+    }
+
+    .loading {
+      background: #14529d;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .error-message {
+      background: #dc3545;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .sent-message {
+      background: #28a745;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+  </style>
+
   <!-- =======================================================
   * Template Name: Constructo
   * Template URL: https://bootstrapmade.com/constructo-bootstrap-construction-template/
@@ -52,6 +202,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
+            <li><a href="ppe-gallery.html">PPE Gallery</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -134,10 +285,11 @@
                   <div class="quote-form-wrapper">
                     <form id="quoteForm" class="php-email-form" data-aos="fade-left" data-aos-delay="200">
                       <div class="form-header">
-                        <h4>Request Your Quote</h4>
-                        <p>Fill out the form below and Tshepo will get back to you with a detailed estimate within 24 hours.</p>
+                        <h4>Request Your PPE Quote</h4>
+                        <p>Select the products you need and provide details. Tshepo will get back to you within 24 hours.</p>
                       </div>
 
+                      <!-- Contact Information -->
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
@@ -159,17 +311,176 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <select name="type" class="form-control" id="productCategory" required="">
-                              <option value="">Select Product Category</option>
-                              <option value="High Visibility Clothing">High Visibility Clothing</option>
-                              <option value="Reflective Products">Reflective Products</option>
-                              <option value="Health & Safety PPE">Health & Safety PPE</option>
-                              <option value="Safety Workwear">Safety Workwear</option>
-                              <option value="Bulk Order">Bulk Order</option>
-                              <option value="Other">Other</option>
-                            </select>
+                            <input type="text" name="company" class="form-control" id="company" placeholder="Company Name (Optional)">
                           </div>
                         </div>
+                      </div>
+
+                      <!-- PPE Product Selection -->
+                      <div class="form-section-title">
+                        <h5><i class="bi bi-bag-check"></i> Select Products You Need</h5>
+                        <p class="small text-muted">Check all categories that apply</p>
+                      </div>
+
+                      <div id="productSelection">
+                        <!-- Workwear & Overalls -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_workwear" data-category="workwear">
+                            <label class="form-check-label" for="cat_workwear">
+                              <strong>Workwear & Overalls</strong>
+                              <span class="text-muted small d-block">Conti suits, overalls, rain suits, reflective jackets</span>
+                            </label>
+                          </div>
+                          <div id="details_workwear" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 10x Conti Suits, 5x Rain Suits)">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., S, M, L, XL, XXL, XXXL)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (colors, specifications, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- High Visibility Safety Wear -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_highvis" data-category="highvis">
+                            <label class="form-check-label" for="cat_highvis">
+                              <strong>High Visibility Safety Wear</strong>
+                              <span class="text-muted small d-block">Reflective vests, hi-vis jackets, safety rainwear</span>
+                            </label>
+                          </div>
+                          <div id="details_highvis" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 20x Reflective Vests, 10x Hi-Vis Jackets)">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., S, M, L, XL, XXL)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (vest colors, reflective tape specs, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Safety Footwear -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_footwear" data-category="footwear">
+                            <label class="form-check-label" for="cat_footwear">
+                              <strong>Safety Footwear</strong>
+                              <span class="text-muted small d-block">Steel toe boots, Chelsea boots, gumboots, slip resistant</span>
+                            </label>
+                          </div>
+                          <div id="details_footwear" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 15 pairs Safety Boots, 10 pairs Gumboots)">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., 6, 7, 8, 9, 10, 11, 12)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (boot type, steel toe specs, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Eye & Face Protection -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_eyeface" data-category="eyeface">
+                            <label class="form-check-label" for="cat_eyeface">
+                              <strong>Eye & Face Protection</strong>
+                              <span class="text-muted small d-block">Safety glasses, goggles, face shields, welding helmets</span>
+                            </label>
+                          </div>
+                          <div id="details_eyeface" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 30x Safety Glasses, 5x Face Shields)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (tinted/clear, anti-fog, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Hand Protection -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_gloves" data-category="gloves">
+                            <label class="form-check-label" for="cat_gloves">
+                              <strong>Hand Protection</strong>
+                              <span class="text-muted small d-block">Work gloves, leather gloves, rubber gloves, nitrile gloves</span>
+                            </label>
+                          </div>
+                          <div id="details_gloves" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 50 pairs Nitrile Gloves, 20 pairs Leather)">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Sizes needed (e.g., S, M, L, XL)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (glove type, grip requirements, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Respiratory Protection -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_respiratory" data-category="respiratory">
+                            <label class="form-check-label" for="cat_respiratory">
+                              <strong>Respiratory Protection</strong>
+                              <span class="text-muted small d-block">Dust masks, respirators, filters, cartridges</span>
+                            </label>
+                          </div>
+                          <div id="details_respiratory" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 100x Dust Masks, 10x Respirators)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (filter type, protection level, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Head & Hearing Protection -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_headhearing" data-category="headhearing">
+                            <label class="form-check-label" for="cat_headhearing">
+                              <strong>Head & Hearing Protection</strong>
+                              <span class="text-muted small d-block">Hard hats, bump caps, earplugs, earmuffs</span>
+                            </label>
+                          </div>
+                          <div id="details_headhearing" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 25x Hard Hats, 50x Earplugs)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (colors, ventilation, NRR rating, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Fall Arrest & Harnesses -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_fallarrest" data-category="fallarrest">
+                            <label class="form-check-label" for="cat_fallarrest">
+                              <strong>Fall Arrest & Harnesses</strong>
+                              <span class="text-muted small d-block">Safety harnesses, lanyards, anchor points, lifelines</span>
+                            </label>
+                          </div>
+                          <div id="details_fallarrest" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 5x Full Body Harnesses, 5x Lanyards)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (working height, certification needs, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- First Aid & Medical Supplies -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_firstaid" data-category="firstaid">
+                            <label class="form-check-label" for="cat_firstaid">
+                              <strong>First Aid & Medical Supplies</strong>
+                              <span class="text-muted small d-block">First aid kits, bandages, burn care, eye wash stations</span>
+                            </label>
+                          </div>
+                          <div id="details_firstaid" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 3x First Aid Kits, 1x Eye Wash Station)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (kit size, specific items needed, etc.)"></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Site Safety & Traffic Management -->
+                        <div class="product-category-item">
+                          <div class="form-check">
+                            <input class="form-check-input product-checkbox" type="checkbox" id="cat_sitesafety" data-category="sitesafety">
+                            <label class="form-check-label" for="cat_sitesafety">
+                              <strong>Site Safety & Traffic Management</strong>
+                              <span class="text-muted small d-block">Traffic cones, barriers, safety signs, fire extinguishers</span>
+                            </label>
+                          </div>
+                          <div id="details_sitesafety" class="product-details" style="display:none;">
+                            <input type="text" class="form-control form-control-sm mb-2" placeholder="Quantities (e.g., 20x Traffic Cones, 10x Barriers, 5x Signs)">
+                            <textarea class="form-control form-control-sm" rows="2" placeholder="Additional details (sign types, barrier specs, etc.)"></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Delivery & Additional Info -->
+                      <div class="form-section-title mt-4">
+                        <h5><i class="bi bi-truck"></i> Delivery & Additional Details</h5>
                       </div>
 
                       <div class="row">
@@ -180,27 +491,35 @@
                               <option value="Urgent (ASAP)">Urgent (ASAP)</option>
                               <option value="1-2 Weeks">1-2 Weeks</option>
                               <option value="3-4 Weeks">3-4 Weeks</option>
+                              <option value="1-2 Months">1-2 Months</option>
                               <option value="Flexible">Flexible</option>
                             </select>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <input type="text" name="quantity" class="form-control" id="estimatedQuantity" placeholder="Estimated Quantity (Optional)">
+                            <input type="text" name="location" class="form-control" id="deliveryLocation" placeholder="Delivery Location (City/Area)">
                           </div>
                         </div>
                       </div>
 
                       <div class="form-group">
-                        <textarea class="form-control" name="message" id="orderDetails" rows="5" placeholder="Order Details - Tell us about your safety product needs, specific requirements, sizes, quantities, and any other details..." required=""></textarea>
+                        <textarea class="form-control" name="message" id="additionalNotes" rows="3" placeholder="Additional notes or special requirements (bulk pricing, custom branding, recurring orders, etc.)"></textarea>
                       </div>
 
-                      <div class="loading" style="display:none;">Submitting...</div>
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="bulkOrder">
+                        <label class="form-check-label" for="bulkOrder">
+                          This is a bulk/corporate order (over 100 items or R10,000)
+                        </label>
+                      </div>
+
+                      <div class="loading" style="display:none;">Submitting your quote request...</div>
                       <div class="error-message" style="display:none;"></div>
                       <div class="sent-message" style="display:none;">Your quote request has been sent successfully. Tshepo will contact you within 24 hours!</div>
 
                       <div class="text-center">
-                        <button type="submit">Request Quote</button>
+                        <button type="submit">Request Detailed Quote</button>
                       </div>
                     </form>
                   </div>
@@ -290,9 +609,33 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- Quote form API integration -->
+  <!-- Quote form functionality -->
   <script>
     (function() {
+      // Handle product category checkbox interactions
+      const checkboxes = document.querySelectorAll('.product-checkbox');
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const category = this.dataset.category;
+          const detailsDiv = document.getElementById('details_' + category);
+          const parentItem = this.closest('.product-category-item');
+          
+          if (this.checked) {
+            detailsDiv.style.display = 'block';
+            parentItem.classList.add('selected');
+          } else {
+            detailsDiv.style.display = 'none';
+            parentItem.classList.remove('selected');
+            // Clear the inputs in this category
+            detailsDiv.querySelectorAll('input, textarea').forEach(input => {
+              input.value = '';
+            });
+          }
+        });
+      });
+
+      // Form submission
       const form = document.getElementById('quoteForm');
       if (!form) return;
 
@@ -309,18 +652,19 @@
         successDiv.style.display = 'none';
         errorDiv.textContent = '';
 
-        // Get fields
+        // Get basic fields
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const productCategory = document.getElementById('productCategory').value;
+        const company = document.getElementById('company').value.trim();
         const deliveryDate = document.getElementById('deliveryDate').value;
-        const estimatedQuantity = document.getElementById('estimatedQuantity').value.trim();
-        const orderDetails = document.getElementById('orderDetails').value.trim();
+        const deliveryLocation = document.getElementById('deliveryLocation').value.trim();
+        const additionalNotes = document.getElementById('additionalNotes').value.trim();
+        const bulkOrder = document.getElementById('bulkOrder').checked;
 
-        // Validate
-        if (!name || !email || !phone || !productCategory || !deliveryDate || !orderDetails) {
-          errorDiv.textContent = 'Please fill in all required fields.';
+        // Validate basic fields
+        if (!name || !email || !phone || !deliveryDate) {
+          errorDiv.textContent = 'Please fill in all required fields (Name, Email, Phone, Delivery Date).';
           errorDiv.style.display = 'block';
           return;
         }
@@ -332,7 +676,65 @@
           return;
         }
 
+        // Collect selected products and their details
+        const selectedProducts = [];
+        checkboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            const category = checkbox.dataset.category;
+            const detailsDiv = document.getElementById('details_' + category);
+            const inputs = detailsDiv.querySelectorAll('input, textarea');
+            const categoryLabel = checkbox.closest('.form-check').querySelector('strong').textContent;
+            
+            let productDetails = {
+              category: categoryLabel,
+              quantities: inputs[0]?.value.trim() || '',
+              sizes: inputs[1]?.value.trim() || '',
+              details: inputs[2]?.value.trim() || ''
+            };
+
+            // Handle categories with only 2 inputs (no sizes)
+            if (inputs.length === 2) {
+              productDetails.sizes = '';
+              productDetails.details = inputs[1]?.value.trim() || '';
+            }
+
+            selectedProducts.push(productDetails);
+          }
+        });
+
+        // Check if at least one product is selected
+        if (selectedProducts.length === 0) {
+          errorDiv.textContent = 'Please select at least one product category.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+
         loading.style.display = 'block';
+
+        // Prepare formatted message
+        let formattedMessage = `=== PPE QUOTE REQUEST ===\n\n`;
+        formattedMessage += `CUSTOMER INFORMATION:\n`;
+        formattedMessage += `Name: ${name}\n`;
+        formattedMessage += `Email: ${email}\n`;
+        formattedMessage += `Phone: ${phone}\n`;
+        if (company) formattedMessage += `Company: ${company}\n`;
+        formattedMessage += `\nDELIVERY DETAILS:\n`;
+        formattedMessage += `Timeline: ${deliveryDate}\n`;
+        if (deliveryLocation) formattedMessage += `Location: ${deliveryLocation}\n`;
+        if (bulkOrder) formattedMessage += `** BULK/CORPORATE ORDER **\n`;
+        formattedMessage += `\n=== PRODUCTS REQUESTED ===\n\n`;
+
+        selectedProducts.forEach((product, index) => {
+          formattedMessage += `${index + 1}. ${product.category}\n`;
+          if (product.quantities) formattedMessage += `   Quantities: ${product.quantities}\n`;
+          if (product.sizes) formattedMessage += `   Sizes: ${product.sizes}\n`;
+          if (product.details) formattedMessage += `   Details: ${product.details}\n`;
+          formattedMessage += `\n`;
+        });
+
+        if (additionalNotes) {
+          formattedMessage += `\nADDITIONAL NOTES:\n${additionalNotes}\n`;
+        }
 
         try {
           const response = await fetch('/api/quote-request', {
@@ -342,10 +744,13 @@
               name,
               email,
               phone,
-              productCategory,
+              company,
               deliveryDate,
-              estimatedQuantity,
-              orderDetails
+              deliveryLocation,
+              bulkOrder,
+              selectedProducts,
+              additionalNotes,
+              formattedMessage
             })
           });
 
@@ -355,8 +760,17 @@
           if (response.ok && result.ok) {
             successDiv.style.display = 'block';
             form.reset();
+            // Reset checkboxes and hide details
+            checkboxes.forEach(cb => {
+              cb.checked = false;
+              const category = cb.dataset.category;
+              document.getElementById('details_' + category).style.display = 'none';
+              cb.closest('.product-category-item').classList.remove('selected');
+            });
+            // Scroll to success message
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
           } else {
-            let msg = 'An error occurred. Please try again or contact us directly.';
+            let msg = 'An error occurred. Please try again or contact us directly at 078 287 9661.';
             if (result.error === 'validation') {
               msg = 'Please check your form fields: ' + (result.fields || []).join(', ');
             }
@@ -365,7 +779,7 @@
           }
         } catch (err) {
           loading.style.display = 'none';
-          errorDiv.textContent = 'Network error. Please check your connection and try again.';
+          errorDiv.textContent = 'Network error. Please try again or call us directly at 078 287 9661.';
           errorDiv.style.display = 'block';
         }
       });
