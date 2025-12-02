@@ -20,19 +20,17 @@
 ### 3. Docker Configuration
 - **Container:** leetshego-nginx
 - **Image:** lss_construction-nginx:latest
-- **Ports:** 8080 (HTTP), 8443 (HTTPS ready)
-- **Networks:** 
-  - lss_construction_leetshego-network
-  - ndlela-search-engine_ndlela-network (for proxy)
+- **Ports:** 9080 (HTTP), 9443 (HTTPS)
+- **Network:** lss_construction_leetshego-network (isolated)
 - **Volumes:**
-  - Nginx config (read-only)
-  - SSL certificates (read-only)
-  - Logs (read-write)
+   - Nginx config (read-only)
+   - SSL certificates (read-only)
+   - Logs (read-write)
 
 ### 4. Reverse Proxy
-- **Main Nginx:** Routes leetshego.co.za → leetshego-nginx container
-- **Config:** `/home/mulalo/applications/ndlela-search-engine/nginx/conf.d/leetshego.conf`
-- **Status:** HTTP proxy active, HTTPS pending SSL certificate
+- **System Nginx:** Routes leetshego.co.za → leetshego-nginx container
+- **Config:** `/etc/nginx/sites-available/leetshego.co.za.conf`
+- **Status:** HTTPS active (managed by system nginx)
 
 ### 5. DNS Configuration
 - **Domain:** leetshego.co.za

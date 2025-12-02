@@ -75,14 +75,11 @@
    - Verify port allocations remain unique
    - Ensure configuration changes are application-specific
 
-2. **Test independence after changes**
+2. **Test application health after changes**
    ```bash
-   # After any changes, verify other apps unaffected
    cd /home/mulalo/applications/lss_construction
    ./scripts/deploy.sh restart
-   
-   # Verify other applications still work
-   curl -I https://ndlelasearchengine.co.za
+   curl -I https://leetshego.co.za/health
    ```
 
 3. **Document any new resources**
@@ -139,15 +136,12 @@ sudo lsof -i :8080
 sudo lsof -i :8443
 ```
 
-### Test Independence
+### Test Health
 
 ```bash
-# Restart this application
 cd /home/mulalo/applications/lss_construction
 ./scripts/deploy.sh restart
-
-# Verify other applications unaffected (should return 200)
-curl -I https://ndlelasearchengine.co.za
+curl -I https://leetshego.co.za/health
 ```
 
 ## What This Means for Developers
