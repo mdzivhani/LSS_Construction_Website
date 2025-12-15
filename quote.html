@@ -340,6 +340,10 @@
         loading.style.display = 'block';
 
         try {
+          // Convert selectedProducts to format expected by API
+          const productCategory = selectedProducts.map(p => p.category).join(', ');
+          const orderDetails = formattedMessage;
+          
           const response = await fetch('/api/quote-request', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -349,7 +353,7 @@
               phone,
               productCategory,
               deliveryDate,
-              estimatedQuantity,
+              estimatedQuantity: selectedProducts.length > 0 ? `Multiple items across ${selectedProducts.length} category(ies)` : '',
               orderDetails
             })
           });

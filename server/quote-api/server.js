@@ -24,7 +24,19 @@ function createTransport() {
     throw new Error('SMTP configuration missing. Set SMTP_HOST, SMTP_USER, SMTP_PASS.');
   }
 
-  return nodemailer.createTransport({ host, port, secure, auth: { user, pass } });
+  console.log(`[SMTP] Connecting to ${host}:${port} with user: ${user} (secure: ${secure})`);
+  const transport = nodemailer.createTransport({ host, port, secure, auth: { user, pass } });
+  
+  // Verify connection configuration
+  transport.verify(function(error, success) {
+    if (error) {
+      console.log('[SMTP] Verification failed:', error);
+    } else {
+      console.log('[SMTP] Server is ready to send messages');
+    }
+  });
+  
+  return transport;
 }
 
 function buildHtmlBody(payload) {
