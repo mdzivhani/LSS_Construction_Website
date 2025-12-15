@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
-import PDFDocument from 'pdfkit';
+import { renderQuoteRequestPdf } from './src/quote/renderQuoteRequestPdf.js';
+import { mapToQuoteRequestView } from './src/quote/mapToQuoteRequestView.js';
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const isEmail = (v) => /.+@.+\..+/.test(v || "");
 const isNonEmpty = (v) => typeof v === 'string' && v.trim().length > 0;
 
 // Transport
-function createTransport() {
+function createTransport() { 
   const host = process.env.SMTP_HOST;
   const port = Number(process.env.SMTP_PORT || 465);
   const secure = String(process.env.SMTP_SECURE || 'true').toLowerCase() === 'true';
@@ -65,41 +66,6 @@ function buildHtmlBody(payload) {
   </div>`;
 }
 
-async function buildPdfBuffer(payload) {
-  return await new Promise((resolve, reject) => {
-    try {
-      const doc = new PDFDocument({ size: 'A4', margin: 50 });
-      const chunks = [];
-      doc.on('data', (d) => chunks.push(d));
-      doc.on('end', () => resolve(Buffer.concat(chunks)));
-
-      doc.fontSize(18).fillColor('#14529d').text('Leetshego Safety Solutions', { align: 'left' });
-      doc.moveDown();
-      doc.fontSize(16).fillColor('#111827').text('Quote Request', { align: 'left' });
-      doc.moveDown();
-
-      const items = [
-        ['Name', payload.name],
-        ['Email', payload.email],
-        ['Phone', payload.phone],
-        ['Product category', payload.productCategory],
-        ['Delivery timeline', payload.deliveryDate],
-        ['Estimated quantity', payload.estimatedQuantity || '—'],
-        ['Order details', payload.orderDetails]
-      ];
-
-      doc.fontSize(12).fillColor('#111827');
-      items.forEach(([label, value]) => {
-        doc.text(`${label}:`, { continued: true }).fillColor('#374151').text(` ${value}`);
-        doc.fillColor('#111827');
-      });
-
-      doc.end();
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
 
 app.post('/quote-request', async (req, res) => {
   const {
@@ -149,7 +115,8 @@ app.post('/quote-request', async (req, res) => {
       const yyyyMMdd = ts.toISOString().slice(0,10).replace(/-/g,'');
       const hhmm = String(ts.getHours()).padStart(2,'0') + String(ts.getMinutes()).padStart(2,'0');
       const pdfName = `quote-request-${yyyyMMdd}-${hhmm}-${payload.name.replace(/\s+/g,'_')}.pdf`;
-      const pdfBuffer = await buildPdfBuffer(payload);
+      const view = mapToQuoteRequestView(payload);
+      const pdfBuffer = await renderQuoteRequestPdf(view);
       attachments.push({ filename: pdfName, content: pdfBuffer, contentType: 'application/pdf' });
     } catch (pdfErr) {
       // Continue without PDF
