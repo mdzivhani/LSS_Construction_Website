@@ -40,7 +40,7 @@ services:
     networks:
       - leetshego-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      test: ["CMD", "curl", "--fail", "--silent", "http://localhost:3000"]
       interval: 30s
       timeout: 10s
       retries: 3

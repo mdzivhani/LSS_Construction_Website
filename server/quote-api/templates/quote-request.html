@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quote Request – Leetshego Safety Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* A4-friendly, professional, compact styling */
+    :root {
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #14529d;
+      --border: #e5e7eb;
+    }
+    html, body { margin: 0; padding: 0; }
+    body { font: 12px/1.6 Arial, Helvetica, sans-serif; color: var(--text); }
+    .page { width: 100%; padding: 32px 40px; box-sizing: border-box; }
+    .header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+    .brand { font-size: 18px; font-weight: 700; color: var(--accent); }
+    .title { font-size: 16px; font-weight: 600; color: var(--text); }
+    .meta { font-size: 11px; color: var(--muted); }
+    .section { margin-top: 16px; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th, .table td { border: 1px solid var(--border); padding: 8px; vertical-align: top; }
+    .label { font-weight: 600; color: var(--text); width: 30%; }
+    .value { color: #374151; }
+    .note { margin-top: 12px; font-size: 10px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="brand">Leetshego Safety Solutions</div>
+      <div class="meta">Requested: {{meta.requestedAt}}</div>
+    </div>
+    <div class="title">Quote Request</div>
+
+    <div class="section">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="label">Name</td>
+            <td class="value">{{customer.name}}</td>
+          </tr>
+          <tr>
+            <td class="label">Email</td>
+            <td class="value">{{customer.email}}</td>
+          </tr>
+          <tr>
+            <td class="label">Phone</td>
+            <td class="value">{{customer.phone}}</td>
+          </tr>
+          <tr>
+            <td class="label">Product Category</td>
+            <td class="value">{{request.productCategory}}</td>
+          </tr>
+          {{#request.deliveryDate}}
+          <tr>
+            <td class="label">Delivery Timeline</td>
+            <td class="value">{{request.deliveryDate}}</td>
+          </tr>
+          {{/request.deliveryDate}}
+          {{#request.estimatedQuantity}}
+          <tr>
+            <td class="label">Estimated Quantity</td>
+            <td class="value">{{request.estimatedQuantity}}</td>
+          </tr>
+          {{/request.estimatedQuantity}}
+          <tr>
+            <td class="label">Order Details</td>
+            <td class="value">{{request.orderDetails}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">This document is generated from the website quote form.</div>
+    </div>
+  </div>
+</body>
+</html>
