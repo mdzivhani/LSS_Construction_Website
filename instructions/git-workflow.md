@@ -49,7 +49,7 @@ Summary
 - Implement DB-backed authentication (Postgres + bcrypt + JWT)
 - Improve login UX (404 for unregistered email, 401 for wrong password)
 - Per-user avatar upload folders; serve via Nginx → Express
-- Add structured logging to /home/logs/ndlelaSearchEngineLogs
+- Maintain structured logging only under /home/mulalo/logs/lss_construction
 
 Testing
 - Register → 201; Login → 200 returns JWT; /api/auth/me returns user

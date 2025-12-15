@@ -13,9 +13,8 @@ fi
 
 echo "✅ DNS resolved to: $DNS_CHECK"
 echo ""
-echo "Stopping main Nginx..."
-cd /home/mulalo/applications/ndlela-search-engine
-docker compose -f docker-compose.prod.yml stop nginx
+echo "Stopping system nginx..."
+sudo systemctl stop nginx
 
 echo ""
 echo "Obtaining SSL certificate..."
@@ -33,11 +32,8 @@ if [ $? -eq 0 ]; then
     echo "Updating Nginx configuration for HTTPS..."
     
     # Backup HTTP-only config
-    mv /home/mulalo/applications/ndlela-search-engine/nginx/conf.d/leetshego.conf \
-       /home/mulalo/applications/ndlela-search-engine/nginx/conf.d/leetshego-http-backup.conf
-    
-    # Create HTTPS config
-    cat > /home/mulalo/applications/ndlela-search-engine/nginx/conf.d/leetshego.conf << 'EOF'
+     # Create/replace system nginx site config
+     sudo tee /etc/nginx/sites-available/leetshego.co.za.conf > /dev/null << 'EOF'
 # HTTP server - redirect to HTTPS
 server {
     listen 80;
@@ -85,8 +81,8 @@ server {
 EOF
     
     echo ""
-    echo "Starting main Nginx with HTTPS..."
-    docker compose -f docker-compose.prod.yml start nginx
+    echo "Starting system nginx with HTTPS..."
+    sudo nginx -t && sudo systemctl start nginx && sudo systemctl enable nginx
     
     echo ""
     echo "✅ Setup complete! Testing HTTPS..."
@@ -96,7 +92,7 @@ EOF
 else
     echo ""
     echo "❌ SSL certificate acquisition failed."
-    echo "Restarting Nginx..."
-    docker compose -f docker-compose.prod.yml start nginx
+    echo "Restarting system nginx..."
+    sudo systemctl start nginx
     exit 1
 fi

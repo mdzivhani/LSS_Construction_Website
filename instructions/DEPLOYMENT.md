@@ -5,7 +5,7 @@
 ✅ **Deployed and Running**
 - Container: `leetshego-nginx` (lss_construction-nginx:latest)
 - Ports: 8080 (HTTP), 8443 (HTTPS ready)
-- Network: Connected to `lss_construction_leetshego-network` and `ndlela-search-engine_ndlela-network`
+- Network: Connected to `lss_construction_leetshego-network` only (isolated)
 - Proxy: Main Nginx routes leetshego.co.za → leetshego-nginx container
 
 ✅ **DNS Configuration**
@@ -26,9 +26,9 @@
 ```
 Internet (port 80/443)
     ↓
-ndlela-nginx (main reverse proxy)
+system nginx (reverse proxy on host ports 80/443)
     ↓
-leetshego-nginx (static site container)
+leetshego-nginx (static site container on 9080/9443)
     ↓
 Static HTML/CSS/JS files
 ```
@@ -64,9 +64,8 @@ If you prefer to do it manually:
 dig +short leetshego.co.za @8.8.8.8
 # Should return: 102.214.11.174
 
-# 2. Stop main Nginx
-cd /home/mulalo/applications/ndlela-search-engine
-docker compose -f docker-compose.prod.yml stop nginx
+# 2. Stop system nginx (if using standalone certbot method)
+sudo systemctl stop nginx
 
 # 3. Get certificate
 sudo certbot certonly --standalone \
@@ -75,12 +74,10 @@ sudo certbot certonly --standalone \
     --email Leetshego@gmail.com \
     --agree-tos --no-eff-email
 
-# 4. Update Nginx config
-# Replace /home/mulalo/applications/ndlela-search-engine/nginx/conf.d/leetshego.conf
-# with HTTPS configuration (see setup-ssl.sh for template)
+# 4. Update system nginx config (create or edit /etc/nginx/sites-available/leetshego.co.za.conf)
 
-# 5. Start Nginx
-docker compose -f docker-compose.prod.yml start nginx
+# 5. Start system nginx
+sudo systemctl start nginx
 
 # 6. Test
 curl -I https://leetshego.co.za
@@ -141,13 +138,13 @@ Certificates expire after 90 days. Renew with:
 
 ```bash
 sudo certbot renew
-docker compose -f /home/mulalo/applications/ndlela-search-engine/docker-compose.prod.yml restart nginx
+sudo systemctl restart nginx
 ```
 
 Consider setting up auto-renewal with cron:
 ```bash
 sudo crontab -e
-# Add: 0 0 1 * * certbot renew --quiet && docker restart ndlela-nginx
+# Add: 0 0 1 * * certbot renew --quiet && systemctl restart nginx
 ```
 
 ## Troubleshooting
@@ -163,9 +160,9 @@ sudo crontab -e
 - Verify no other service is using port 80
 
 ### Site not accessible via domain
-- Check main Nginx: `docker logs ndlela-nginx`
-- Verify network connection: `docker network inspect ndlela-search-engine_ndlela-network`
-- Test container directly: `curl http://localhost:8080`
+- Check system nginx: `systemctl status nginx`
+- View system nginx logs: `sudo tail -n 50 /var/log/nginx/error.log`
+- Test container directly: `curl -I https://localhost:9443`
 
 ### Container won't start
 - Check logs: `docker logs leetshego-nginx`

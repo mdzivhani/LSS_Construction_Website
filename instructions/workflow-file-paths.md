@@ -1,97 +1,61 @@
-# Workflow File Path Validation
+# Static Site File Reference
 
-This document serves as the authoritative reference for all file paths used in CI/CD workflows. All workflow files MUST use these exact paths.
+This repository contains only the Leetshego static website (HTML/CSS/JS) and nginx configuration. It does not include any .NET solution, backend services, or cross-application files.
 
-## Critical Rule
-**ALWAYS verify file paths exist before updating workflows. Run validation commands below.**
+## Scope
+Only validate presence of static assets and nginx config when updating workflows or deployment scripts.
 
 ## Project Structure
 
 ```
-ndlela-search-engine/
-├── Ndlela Search Engine.sln          # Root-level solution file
-├── backend/
-│   └── services/                      # All .NET projects here
-│       ├── SA.Tourism.Auth.Api/
-│       │   ├── Dockerfile
-│       │   └── SA.Tourism.Auth.Api.csproj
-│       ├── SA.Tourism.Business.Api/
-│       │   ├── Dockerfile
-│       │   └── SA.Tourism.Business.Api.csproj
-│       ├── SA.Tourism.Business.Models/
-│       ├── SA.Tourism.Business.Services/
-│       ├── SA.Tourism.Business.Infrastructure/
-│       ├── SA.Tourism.Business.Tests/
-│       ├── SA.Tourism.Search.Api/
-│       ├── SA.Tourism.Search.Models/
-│       ├── SA.Tourism.Search.Services/
-│       └── SA.Tourism.Search.Tests/
-└── frontend/
-    ├── client/
-    │   ├── Dockerfile
-    │   ├── package.json
-    │   └── src/
-    └── server/
-        ├── Dockerfile
-        ├── package.json
-        └── routes/
+/home/mulalo/applications/lss_construction/
+├── index.html
+├── about.html
+├── contact.html
+├── assets/
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   └── vendor/
+├── nginx/
+│   ├── nginx.conf
+│   └── conf.d/leetshego-http.conf
+├── docker-compose.yml
+├── Dockerfile
+└── instructions/
 ```
 
-## Validated File Paths
+## Validation Targets
+No solution or backend paths exist. Validate only:
 
-### .NET Solution and Projects
+| Path | Purpose | Validation |
+|------|---------|------------|
+| `assets/` | Static styles/scripts/images | `ls -d assets` |
+| `nginx/nginx.conf` | Base nginx config | `ls nginx/nginx.conf` |
+| `nginx/conf.d/leetshego-http.conf` | Site server blocks | `ls nginx/conf.d/leetshego-http.conf` |
+| `docker-compose.yml` | Container definition | `ls docker-compose.yml` |
+| `Dockerfile` | Build definition | `ls Dockerfile` |
 
-| Path | Purpose | Validation Command |
-|------|---------|-------------------|
-| `"Ndlela Search Engine.sln"` | Root solution file | `ls "Ndlela Search Engine.sln"` |
-| `backend/services/` | All .NET projects | `ls -d backend/services` |
-| `backend/services/SA.Tourism.Auth.Api/` | Auth API project | `ls -d backend/services/SA.Tourism.Auth.Api/` |
-| `backend/services/SA.Tourism.Business.Api/` | Business API project | `ls -d backend/services/SA.Tourism.Business.Api/` |
+### Static Asset Checks
 
-### Frontend Paths
+```bash
+ls -d assets/css assets/js assets/img assets/vendor
+```
 
-| Path | Purpose | Validation Command |
-|------|---------|-------------------|
-| `frontend/client/` | React/Vite client | `ls -d frontend/client` |
-| `frontend/client/package.json` | Client dependencies | `ls frontend/client/package.json` |
-| `frontend/client/Dockerfile` | Client Docker build | `ls frontend/client/Dockerfile` |
-| `frontend/server/` | Express.js server | `ls -d frontend/server` |
-| `frontend/server/package.json` | Server dependencies | `ls frontend/server/package.json` |
-| `frontend/server/Dockerfile` | Server Docker build | `ls frontend/server/Dockerfile` |
+### Docker Build Context
 
-### Docker Build Contexts
+Context is repository root; Dockerfile copies static content and nginx configs.
 
-| Service | Context Path | Dockerfile Path | Validation |
-|---------|-------------|-----------------|------------|
-| Auth API | `./backend/services` | `./backend/services/SA.Tourism.Auth.Api/Dockerfile` | `ls backend/services/SA.Tourism.Auth.Api/Dockerfile` |
-| Business API | `./backend/services` | `./backend/services/SA.Tourism.Business.Api/Dockerfile` | `ls backend/services/SA.Tourism.Business.Api/Dockerfile` |
-| Express Server | `./frontend/server` | `./frontend/server/Dockerfile` | `ls frontend/server/Dockerfile` |
-| React Client | `./frontend/client` | `./frontend/client/Dockerfile` | `ls frontend/client/Dockerfile` |
-
-## Correct Workflow Commands
-
-### .NET Commands (ci.yml, ci-dev.yml, deploy-production.yml)
+## Example Workflow Snippets
 
 ```yaml
-# ✅ CORRECT - Use root-level solution file
-- name: Restore dependencies
-  run: dotnet restore "Ndlela Search Engine.sln"
-
-- name: Build backend
-  run: dotnet build "Ndlela Search Engine.sln" --no-restore -c Release
-
-- name: Run tests
-  run: dotnet test "Ndlela Search Engine.sln" --no-build -c Release
-
-# ❌ WRONG - Don't cd into backend/
-- name: Restore dependencies
-  run: |
-    cd backend
-    dotnet restore
-
-# ❌ WRONG - Solution is not in backend/
-- name: Restore dependencies
-  run: dotnet restore backend/Ndlela\ Search\ Engine.sln
+# Build and push image
+- name: Build image
+  uses: docker/build-push-action@v6
+  with:
+    context: .
+    file: ./Dockerfile
+    push: false
 ```
 
 ### Frontend Commands
@@ -139,79 +103,40 @@ ndlela-search-engine/
     file: ./backend/services/SA.Tourism.Business.Api/Dockerfile
 ```
 
-## Validation Script
+## Quick Validation Script
 
 Run this script before pushing workflow changes:
 
 ```bash
 #!/bin/bash
-echo "Validating workflow file paths..."
-
-# Solution file
-if [ ! -f "Ndlela Search Engine.sln" ]; then
-    echo "❌ FAIL: Solution file not found at root"
-    exit 1
-fi
-echo "✅ Solution file: Ndlela Search Engine.sln"
-
-# Backend structure
-if [ ! -d "backend/services" ]; then
-    echo "❌ FAIL: backend/services directory not found"
-    exit 1
-fi
-echo "✅ Backend services directory exists"
-
-# Backend Dockerfiles
-for service in "SA.Tourism.Auth.Api" "SA.Tourism.Business.Api"; do
-    if [ ! -f "backend/services/$service/Dockerfile" ]; then
-        echo "❌ FAIL: backend/services/$service/Dockerfile not found"
-        exit 1
-    fi
-    echo "✅ Dockerfile: backend/services/$service/Dockerfile"
+echo "Validating static site structure..."
+for p in index.html assets nginx/nginx.conf nginx/conf.d/leetshego-http.conf Dockerfile docker-compose.yml; do
+  if [ ! -e "$p" ]; then
+  echo "❌ Missing: $p"; exit 1; fi
+  echo "✅ Found: $p"
 done
-
-# Frontend structure
-for dir in "frontend/client" "frontend/server"; do
-    if [ ! -d "$dir" ]; then
-        echo "❌ FAIL: $dir directory not found"
-        exit 1
-    fi
-    if [ ! -f "$dir/package.json" ]; then
-        echo "❌ FAIL: $dir/package.json not found"
-        exit 1
-    fi
-    if [ ! -f "$dir/Dockerfile" ]; then
-        echo "❌ FAIL: $dir/Dockerfile not found"
-        exit 1
-    fi
-    echo "✅ Frontend: $dir (package.json, Dockerfile)"
-done
-
-echo ""
-echo "✅ All file paths validated successfully!"
+echo "✅ Static site validation complete"
 ```
 
 ## Common Mistakes to Avoid
 
-1. **Using `cd backend` before dotnet commands** - The solution file is at root level, not in backend/
-2. **Using backend/ prefix for solution file** - It's `"Ndlela Search Engine.sln"` not `backend/Ndlela Search Engine.sln`
-3. **Wrong Docker context for backend APIs** - Use `./backend/services` (parent directory), not the individual service directory
-4. **Forgetting quotes around solution filename** - The solution file has spaces in the name, always use quotes
+1. Avoid adding backend/.NET paths (not part of this repo)
+2. Ensure nginx config paths stay accurate
+3. Keep Docker context at repository root
+4. Minimize workflow steps (build, push, deploy)
 
 ## When Modifying Workflows
 
 **Required checklist before committing workflow changes:**
 
-- [ ] Run validation script above
-- [ ] Verify all dotnet commands use `"Ndlela Search Engine.sln"`
-- [ ] Verify no `cd backend` commands before dotnet operations
-- [ ] Verify Docker contexts use `./backend/services` for backend APIs
-- [ ] Verify Docker contexts use `./frontend/client` or `./frontend/server` for frontend
-- [ ] Test workflow locally if possible
-- [ ] Document any new paths in this file
+- [ ] Run validation script
+- [ ] Confirm required static paths exist
+- [ ] Review Docker build step
+- [ ] Confirm no backend references added
+- [ ] Document any new static asset directories
 
 ## Last Validated
 
-Date: November 26, 2025
-By: GitHub Copilot
-All paths verified against actual repository structure.
+Date: December 2, 2025
+By: Isolation Cleanup
+Static site only; no cross-application references.

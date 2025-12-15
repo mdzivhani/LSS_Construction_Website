@@ -15,8 +15,8 @@ This directory contains all operational documentation and guidelines for the Lee
 - **[content-management.md](./content-management.md)** - Guide for updating website content, images, and pages
 
 ### Development Guidelines
-- **[backend-guidelines.md](./backend-guidelines.md)** - Backend development practices
-- **[frontend-guidelines.md](./frontend-guidelines.md)** - Frontend development practices
+- **[backend-guidelines.md](./backend-guidelines.md)** - Backend development practices, including comprehensive error handling and logging
+- **[frontend-guidelines.md](./frontend-guidelines.md)** - Frontend development practices, including error handling and logging
 - **[code-review-guidelines.md](./code-review-guidelines.md)** - Code review standards
 - **[configuration-management.md](./configuration-management.md)** - Configuration management
 - **[documentation-style.md](./documentation-style.md)** - Documentation standards

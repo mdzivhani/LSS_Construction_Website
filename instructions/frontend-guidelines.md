@@ -401,6 +401,349 @@ loading
 - Provide examples for common tasks
 - Keep it up-to-date
 
+## Error Handling and Logging
+
+### Error Handling Principles
+
+#### Never Ignore Errors
+- Every error must be caught and handled appropriately
+- Use try-catch blocks for synchronous code
+- Use catchError operator for RxJS observables
+- Provide user-friendly error messages
+- Log all errors for debugging and monitoring
+
+#### Global Error Handler
+- Implement a global ErrorHandler service
+- Catch unhandled errors and exceptions
+- Log errors to monitoring service (e.g., Sentry, LogRocket)
+- Display user-friendly error notifications
+
+```typescript
+@Injectable()
+export class GlobalErrorHandler implements ErrorHandler {
+  constructor(private injector: Injector) {}
+
+  handleError(error: Error | HttpErrorResponse): void {
+    const notificationService = this.injector.get(NotificationService);
+    const logger = this.injector.get(LoggerService);
+
+    if (error instanceof HttpErrorResponse) {
+      // Server error
+      logger.error('HTTP Error', { status: error.status, message: error.message });
+      notificationService.error('Server error occurred. Please try again.');
+    } else {
+      // Client error
+      logger.error('Client Error', { message: error.message, stack: error.stack });
+      notificationService.error('An unexpected error occurred.');
+    }
+  }
+}
+```
+
+#### HTTP Error Handling
+- Use interceptors for global HTTP error handling
+- Handle specific status codes appropriately
+- Provide context-specific error messages
+- Retry failed requests when appropriate
+
+```typescript
+export class ErrorInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = 'An error occurred';
+        
+        if (error.status === 401) {
+          errorMessage = 'Unauthorized. Please login.';
+          // Redirect to login
+        } else if (error.status === 404) {
+          errorMessage = 'Resource not found.';
+        } else if (error.status === 500) {
+          errorMessage = 'Server error. Please try again later.';
+        }
+        
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+  }
+}
+```
+
+### Structured Logging
+
+#### Logging Service
+- Implement a centralized logging service
+- Include structured context with every log
+- Support multiple log levels (debug, info, warn, error)
+- Send logs to backend or monitoring service
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class LoggerService {
+  debug(message: string, context?: any): void {
+    if (!environment.production) {
+      console.debug(`[DEBUG] ${message}`, context);
+    }
+  }
+
+  info(message: string, context?: any): void {
+    console.log(`[INFO] ${message}`, context);
+    this.sendToBackend('info', message, context);
+  }
+
+  warn(message: string, context?: any): void {
+    console.warn(`[WARN] ${message}`, context);
+    this.sendToBackend('warn', message, context);
+  }
+
+  error(message: string, context?: any): void {
+    console.error(`[ERROR] ${message}`, context);
+    this.sendToBackend('error', message, context);
+  }
+
+  private sendToBackend(level: string, message: string, context?: any): void {
+    // Send to backend logging endpoint
+  }
+}
+```
+
+#### What to Log
+
+**Info Level:**
+- User authentication events (login, logout)
+- Navigation events
+- Important user actions (form submissions, file uploads)
+- API request/response summaries
+
+**Warning Level:**
+- Validation failures
+- Deprecated feature usage
+- Performance issues (slow responses)
+- Recoverable errors
+
+**Error Level:**
+- Unhandled exceptions
+- HTTP errors
+- Failed API requests
+- Runtime errors
+
+**Never Log:**
+- Passwords or authentication tokens
+- Credit card numbers or PII
+- Full request/response bodies (unless sanitized)
+- API keys or secrets
+
+### Avatar Upload Logging and Error Handling
+
+When implementing avatar upload functionality, follow these specific requirements:
+
+#### Upload Start
+Log when the upload process begins with:
+- Operation name: "Avatar Upload"
+- User ID
+- File name and size
+- MIME type
+
+```typescript
+uploadAvatar(file: File): Observable<UploadResponse> {
+  this.logger.info('Avatar upload started', {
+    operation: 'avatar-upload',
+    userId: this.authService.currentUser()?.id,
+    fileName: file.name,
+    fileSize: file.size,
+    mimeType: file.type
+  });
+
+  // Implementation...
+}
+```
+
+#### Validation Step
+Log validation results:
+- File type validation
+- File size validation
+- Image dimension validation (if applicable)
+
+```typescript
+private validateFile(file: File): boolean {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  const maxSize = 5 * 1024 * 1024; // 5MB
+
+  if (!allowedTypes.includes(file.type)) {
+    this.logger.warn('Avatar upload failed: invalid file type', {
+      operation: 'avatar-upload-validation',
+      fileName: file.name,
+      mimeType: file.type,
+      allowedTypes
+    });
+    return false;
+  }
+
+  if (file.size > maxSize) {
+    this.logger.warn('Avatar upload failed: file too large', {
+      operation: 'avatar-upload-validation',
+      fileName: file.name,
+      fileSize: file.size,
+      maxSize
+    });
+    return false;
+  }
+
+  return true;
+}
+```
+
+#### Upload Success
+Log when upload completes successfully:
+- Upload duration
+- Final file URL
+- User ID
+
+```typescript
+this.http.post<UploadResponse>('/api/auth/avatar', formData).pipe(
+  tap(response => {
+    this.logger.info('Avatar upload successful', {
+      operation: 'avatar-upload-success',
+      userId: this.authService.currentUser()?.id,
+      fileUrl: response.fileUrl,
+      duration: Date.now() - startTime
+    });
+  }),
+  catchError(error => this.handleUploadError(error))
+);
+```
+
+#### Error Handling
+Catch and log all upload errors:
+- Network errors
+- Server errors (4xx, 5xx)
+- Validation errors
+- Unexpected errors
+
+```typescript
+private handleUploadError(error: HttpErrorResponse): Observable<never> {
+  this.logger.error('Avatar upload failed', {
+    operation: 'avatar-upload-error',
+    userId: this.authService.currentUser()?.id,
+    status: error.status,
+    message: error.message,
+    error: error.error
+  });
+
+  let userMessage = 'Failed to upload avatar. Please try again.';
+
+  if (error.status === 413) {
+    userMessage = 'File is too large. Maximum size is 5MB.';
+  } else if (error.status === 415) {
+    userMessage = 'Invalid file type. Please upload a JPEG, PNG, or GIF image.';
+  }
+
+  this.notificationService.error(userMessage);
+  return throwError(() => new Error(userMessage));
+}
+```
+
+#### Required Tags for Searchability
+Always include these tags in avatar upload logs:
+- "avatar" - for all avatar-related operations
+- "upload" - for upload operations
+- "error" - for error cases
+
+This allows easy searching through logs:
+```bash
+# Search for all avatar upload errors
+grep -i "avatar.*upload.*error" logs/
+```
+
+### User Action Logging
+
+#### Track Important User Actions
+```typescript
+// Login
+this.logger.info('User logged in', {
+  userId: user.id,
+  email: user.email,
+  timestamp: new Date().toISOString()
+});
+
+// Profile update
+this.logger.info('Profile updated', {
+  userId: user.id,
+  fields: Object.keys(updatedFields)
+});
+
+// Navigation
+this.router.events.pipe(
+  filter(event => event instanceof NavigationEnd)
+).subscribe((event: NavigationEnd) => {
+  this.logger.info('Navigation', {
+    url: event.url,
+    userId: this.authService.currentUser()?.id
+  });
+});
+```
+
+### Performance Monitoring
+
+#### Log Performance Metrics
+```typescript
+export class PerformanceInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const startTime = Date.now();
+
+    return next.handle(req).pipe(
+      tap(() => {
+        const duration = Date.now() - startTime;
+        if (duration > 1000) {
+          this.logger.warn('Slow API request', {
+            url: req.url,
+            method: req.method,
+            duration
+          });
+        }
+      })
+    );
+  }
+}
+```
+
+### Error Boundaries
+
+#### Component Error Boundaries
+```typescript
+@Component({
+  selector: 'app-error-boundary',
+  template: `
+    @if (hasError) {
+      <div class="error-boundary">
+        <h2>Something went wrong</h2>
+        <button (click)="retry()">Try Again</button>
+      </div>
+    } @else {
+      <ng-content></ng-content>
+    }
+  `
+})
+export class ErrorBoundaryComponent {
+  hasError = signal(false);
+
+  constructor(private logger: LoggerService) {}
+
+  handleError(error: Error): void {
+    this.hasError.set(true);
+    this.logger.error('Component error', {
+      component: 'ErrorBoundary',
+      message: error.message,
+      stack: error.stack
+    });
+  }
+
+  retry(): void {
+    this.hasError.set(false);
+  }
+}
+```
+
 ## Best Practices Summary
 
 - **Type Safety**: Leverage TypeScript to catch errors at compile time
@@ -411,3 +754,5 @@ loading
 - **Performance**: Use OnPush, signals, and lazy loading
 - **Accessibility**: Ensure components are accessible (ARIA, keyboard navigation)
 - **Consistency**: Follow established patterns and conventions
+- **Error Handling**: Never ignore errors, use global error handler, provide user-friendly messages
+- **Logging**: Use structured logging with context, never log sensitive data
