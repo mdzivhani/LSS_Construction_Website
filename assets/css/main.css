@@ -69,6 +69,16 @@ body {
   font-family: var(--default-font);
 }
 
+/* Mobile font size optimization */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  body {
+    font-size: 0.9rem;
+  }
+}
+
 a {
   color: var(--accent-color);
   text-decoration: none;
